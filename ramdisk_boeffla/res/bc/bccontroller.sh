@@ -1014,6 +1014,20 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "10000" >/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate_min
 		echo "95" >/sys/devices/system/cpu/cpufreq/ondemand/up_threshold
 	fi
+
+	if [ "smartassV2 - standard" == "$2" ]; then
+		echo "800000" > /sys/devices/system/cpu/cpufreq/smartassV2/awake_ideal_freq
+		echo "0" > /sys/devices/system/cpu/cpufreq/smartassV2/debug_mask
+		echo "99000" > /sys/devices/system/cpu/cpufreq/smartassV2/down_rate_us
+		echo "55" > /sys/devices/system/cpu/cpufreq/smartassV2/max_cpu_load
+		echo "25" > /sys/devices/system/cpu/cpufreq/smartassV2/min_cpu_load
+		echo "300000" > /sys/devices/system/cpu/cpufreq/smartassV2/ramp_down_step
+		echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/ramp_up_step
+		echo "2" > /sys/devices/system/cpu/cpufreq/smartassV2/sample_rate_jiffies
+		echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_ideal_freq
+		echo "99999999" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_wakeup_freq
+		echo "48000" > /sys/devices/system/cpu/cpufreq/smartassV2/up_rate_us
+	fi
 	
 	exit 0
 fi

@@ -51,7 +51,7 @@ if [ "lov_eq_gain_profiles" == "$1" ]; then
 fi
 
 if [ "lov_system_tweaks" == "$1" ]; then
-	echo "Off;Boeffla tweaks;Speedmod tweaks;Mattiadj tweaks"
+	echo "Off;Frandom tweaks;Boeffla tweaks;Speedmod tweaks;Mattiadj tweaks"
 	exit 0
 fi
 
@@ -1019,43 +1019,13 @@ if [ "apply_governor_profile" == "$1" ]; then
 fi
 
 if [ "apply_system_tweaks" == "$1" ]; then
-	if [ "Off" == "$2" ]; then
-		echo "16384" > /proc/sys/fs/inotify/max_queued_events
-		echo "77749" > /proc/sys/fs/file-max
-		echo "128" > /proc/sys/fs/inotify/max_user_instances
-		echo "8192" > /proc/sys/fs/inotify/max_user_watches
-		echo "45" > /proc/sys/fs/lease-break-time
 
-		echo "8192" > /proc/sys/kernel/msgmax
-		echo "1250" > /proc/sys/kernel/msgmni
-		echo "1" > /proc/sys/kernel/panic
-		echo "64" > /proc/sys/kernel/random/read_wakeup_threshold
-		echo "128" > /proc/sys/kernel/random/write_wakeup_threshold
-		echo "6666666" > /proc/sys/kernel/sched_latency_ns
-		echo "1333332" > /proc/sys/kernel/sched_wakeup_granularity_ns
-		echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-		echo "250 32000 32 128" > /proc/sys/kernel/sem
-		echo "33554432" > /proc/sys/kernel/shmmax
-		echo "12151" > /proc/sys/kernel/threads-max
-
-		echo "131071" > /proc/sys/net/core/rmem_max
-		echo "2097152" > /proc/sys/net/core/wmem_max
-		echo "524288 1048576 2097152" > /proc/sys/net/ipv4/tcp_rmem
-		echo "0" > /proc/sys/net/ipv4/tcp_tw_recycle
-		echo "262144 524288 1048576" > /proc/sys/net.ipv4/tcp_wmem
-
-		echo "5" > /proc/sys/vm/dirty_background_ratio
-		echo "200" > /proc/sys/vm/dirty_expire_centisecs
-		echo "20" > /proc/sys/vm/dirty_ratio
-		echo "500" > /proc/sys/vm/dirty_writeback_centisecs
-		echo "3638" > /proc/sys/vm/min_free_kbytes
-		echo "60" > /proc/sys/vm/swappiness
-		echo "100" > /proc/sys/vm/vfs_cache_pressure
-		echo "0" > /proc/sys/vm/drop_caches
-
-		echo "5" > /proc/sys/net/ipv4/tcp_syn_retries
-		echo "5" > /proc/sys/net/ipv4/tcp_synack_retries
-		echo "60" > /proc/sys/net/ipv4/tcp_fin_timeout
+	if [ "Frandom tweaks" == "$2" ]; then
+		insmod $LIBPATH/frandom.ko ;
+		busybox ln -f /dev/frandom /dev/random ; 
+		busybox ln -f /dev/frandom /dev/erandom ;
+		busybox ln -f /dev/frandom /dev/urandom ;
+		busybox chmod 666 /dev/*random
 	fi
 
 	if [ "Boeffla tweaks" == "$2" ]; then

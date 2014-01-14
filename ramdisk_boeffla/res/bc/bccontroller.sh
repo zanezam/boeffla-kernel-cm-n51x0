@@ -285,7 +285,7 @@ fi
 
 if [ "param_boeffla_sound" == "$1" ]; then
 	# Headphone min/max, Speaker min/max
-	echo "20;63;57;63;"
+	echo "20;63;20;63;"
 	# Equalizer min/max
 	echo "-12;12;"
 	# Microphone gain min/max
@@ -303,7 +303,7 @@ fi
 
 if [ "param_gpu_uv" == "$1" ]; then
 	# GPU UV min/max/steps
-	echo "600000;1200000;25000"
+	echo "500000;1200000;25000"
 	exit 0
 fi
 

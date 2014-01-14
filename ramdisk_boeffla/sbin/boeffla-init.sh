@@ -56,22 +56,22 @@ INITD_ENABLER="/data/.boeffla/enable-initd"
 
 # If rom comes without mount command in /system/bin folder, create busybox symlinks for mount/umount
 	if [ ! -f /system/bin/mount ]; then
-		/sbin/busybox mount -o remount,rw /
+		/sbin/busybox mount -o remount,rw rootfs /
 		/sbin/busybox ln /sbin/busybox /sbin/mount
 		/sbin/busybox ln /sbin/busybox /sbin/umount
-		/sbin/busybox mount -o remount,ro /
+		/sbin/busybox mount -o remount,ro rootfs /
 		echo $(date) "Rom does not come with mount command, symlinks created" > $BOEFFLA_LOGFILE
 	fi
 		
 # Correct /sbin and /res directory and file permissions
-	mount -o remount,rw /
+	mount -o remount,rw rootfs /
 
 	# change permissions of /sbin folder and scripts in /res/bc
 	/sbin/busybox chmod -R 755 /sbin
 	/sbin/busybox chmod 755 /res/bc/*
 
 	/sbin/busybox sync
-	mount -o remount,ro /
+	mount -o remount,ro rootfs /
 
 # remove any obsolete Boeffla-Config V2 startconfig done file
 /sbin/busybox rm -f $BOEFFLA_STARTCONFIG_DONE

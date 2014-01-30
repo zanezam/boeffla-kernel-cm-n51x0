@@ -19,6 +19,14 @@ KERNEL_FEATURES="-1-"
 LIBPATH="/lib/modules"				# Samsung
 #LIBPATH="/system/lib/modules"		# Cyanogenmod+Omni
 
+# block devices
+SYSTEM_DEVICE="/dev/block/mmcblk0p9"
+CACHE_DEVICE="/dev/block/mmcblk0p8"
+DATA_DEVICE="/dev/block/mmcblk0p12"
+BOOT_DEVICE="/dev/block/mmcblk0p5"
+RADIO_DEVICE="/dev/block/mmcblk0p7"
+RECOVERY_DEVICE="/dev/block/mmcblk0p6"
+
 
 # *******************
 # List of values
@@ -429,6 +437,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
 		echo "85" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
 		echo "37" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusq - boeffla 1 core" == "$2" ]; then
@@ -452,6 +463,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
 		echo "85" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
 		echo "37" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusq - boeffla 2 cores" == "$2" ]; then
@@ -475,6 +489,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
 		echo "85" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
 		echo "37" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusq - speedmod" == "$2" ]; then
@@ -498,6 +515,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
 		echo "85" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
 		echo "37" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusq - boeffla battery saving" == "$2" ]; then
@@ -521,6 +541,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
 		echo "95" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
 		echo "25" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusq - boeffla moderate" == "$2" ]; then
@@ -545,6 +568,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "85" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
 		echo "37" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
 
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusqplus - standard" == "$2" ]; then
@@ -586,6 +611,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "95" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_at_fast_down
 		echo "40" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_at_min_freq
 		echo "6" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_diff
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusqplus - balanced" == "$2" ]; then
@@ -627,6 +655,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "95" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_at_fast_down
 		echo "55" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_at_min_freq
 		echo "7" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_diff
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "pegasusqplus - battery" == "$2" ]; then
@@ -668,6 +699,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "95" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_at_fast_down
 		echo "55" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_at_min_freq
 		echo "7" > /sys/devices/system/cpu/cpufreq/pegasusqplus/up_threshold_diff
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "zzmoove - standard" == "$2" ]; then
@@ -721,6 +755,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_cycles
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "zzmoove - battery" == "$2" ]; then
@@ -781,6 +818,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_cycles
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "zzmoove - optimal" == "$2" ]; then
@@ -841,6 +881,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_cycles
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "zzmoove - performance" == "$2" ]; then
@@ -901,6 +944,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_cycles
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
 		echo "0" >/sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "zzmoove - battery extreme yank" == "$2" ]; then
@@ -941,6 +987,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step_sleep
 		echo "90" >/sys/devices/system/cpu/cpufreq/zzmoove/smooth_up_sleep
 		echo "1" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_sleep
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "zzmoove - battery yank" == "$2" ]; then
@@ -981,6 +1030,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step_sleep
 		echo "90" >/sys/devices/system/cpu/cpufreq/zzmoove/smooth_up_sleep
 		echo "1" >/sys/devices/system/cpu/cpufreq/zzmoove/hotplug_sleep
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "lulzactiveq - standard" == "$2" ]; then
@@ -1015,6 +1067,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "11" >/sys/devices/system/cpu/cpufreq/lulzactiveq/screen_off_min_step
 		echo "1" >/sys/devices/system/cpu/cpufreq/lulzactiveq/up_nr_cpus
 		echo "20000" >/sys/devices/system/cpu/cpufreq/lulzactiveq/up_sample_time
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "ondemand - standard" == "$2" ]; then
@@ -1027,6 +1082,9 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "100000" >/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
 		echo "10000" >/sys/devices/system/cpu/cpufreq/ondemand/sampling_rate_min
 		echo "95" >/sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "smartassV2 - standard" == "$2" ]; then
@@ -1041,37 +1099,17 @@ if [ "apply_governor_profile" == "$1" ]; then
 		echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_ideal_freq
 		echo "99999999" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_wakeup_freq
 		echo "48000" > /sys/devices/system/cpu/cpufreq/smartassV2/up_rate_us
+
+		busybox sleep 0.5s
+		busybox sync
 	fi
 	
 	exit 0
 fi
 
 if [ "apply_system_tweaks" == "$1" ]; then
+
 	if [ "Off" == "$2" ]; then
-		echo "16384" > /proc/sys/fs/inotify/max_queued_events
-		echo "77749" > /proc/sys/fs/file-max
-		echo "128" > /proc/sys/fs/inotify/max_user_instances
-		echo "8192" > /proc/sys/fs/inotify/max_user_watches
-		echo "45" > /proc/sys/fs/lease-break-time
-
-		echo "8192" > /proc/sys/kernel/msgmax
-		echo "1250" > /proc/sys/kernel/msgmni
-		echo "1" > /proc/sys/kernel/panic
-		echo "64" > /proc/sys/kernel/random/read_wakeup_threshold
-		echo "128" > /proc/sys/kernel/random/write_wakeup_threshold
-		echo "6666666" > /proc/sys/kernel/sched_latency_ns
-		echo "1333332" > /proc/sys/kernel/sched_wakeup_granularity_ns
-		echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-		echo "250 32000 32 128" > /proc/sys/kernel/sem
-		echo "33554432" > /proc/sys/kernel/shmmax
-		echo "12151" > /proc/sys/kernel/threads-max
-
-		echo "131071" > /proc/sys/net/core/rmem_max
-		echo "2097152" > /proc/sys/net/core/wmem_max
-		echo "524288 1048576 2097152" > /proc/sys/net/ipv4/tcp_rmem
-		echo "0" > /proc/sys/net/ipv4/tcp_tw_recycle
-		echo "262144 524288 1048576" > /proc/sys/net/ipv4/tcp_wmem
-
 		echo "5" > /proc/sys/vm/dirty_background_ratio
 		echo "200" > /proc/sys/vm/dirty_expire_centisecs
 		echo "20" > /proc/sys/vm/dirty_ratio
@@ -1080,96 +1118,21 @@ if [ "apply_system_tweaks" == "$1" ]; then
 		echo "60" > /proc/sys/vm/swappiness
 		echo "100" > /proc/sys/vm/vfs_cache_pressure
 		echo "0" > /proc/sys/vm/drop_caches
-
-		echo "5" > /proc/sys/net/ipv4/tcp_syn_retries
-		echo "5" > /proc/sys/net/ipv4/tcp_synack_retries
-		echo "60" > /proc/sys/net/ipv4/tcp_fin_timeout
-
-		if [ -e /dev/random.orig ]; then
-			busybox rm /dev/random
-			busybox mv /dev/random.orig /dev/random
-			busybox chmod 644 /dev/random
-			busybox rm /dev/urandom
-			busybox mv /dev/urandom.orig /dev/urandom
-			busybox chmod 644 /dev/urandom
-		fi
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "Frandom tweaks" == "$2" ]; then
-		echo "16384" > /proc/sys/fs/inotify/max_queued_events
-		echo "77749" > /proc/sys/fs/file-max
-		echo "128" > /proc/sys/fs/inotify/max_user_instances
-		echo "8192" > /proc/sys/fs/inotify/max_user_watches
-		echo "45" > /proc/sys/fs/lease-break-time
-
-		echo "8192" > /proc/sys/kernel/msgmax
-		echo "1250" > /proc/sys/kernel/msgmni
-		echo "1" > /proc/sys/kernel/panic
-		echo "64" > /proc/sys/kernel/random/read_wakeup_threshold
-		echo "128" > /proc/sys/kernel/random/write_wakeup_threshold
-		echo "6666666" > /proc/sys/kernel/sched_latency_ns
-		echo "1333332" > /proc/sys/kernel/sched_wakeup_granularity_ns
-		echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-		echo "250 32000 32 128" > /proc/sys/kernel/sem
-		echo "33554432" > /proc/sys/kernel/shmmax
-		echo "12151" > /proc/sys/kernel/threads-max
-
-		echo "131071" > /proc/sys/net/core/rmem_max
-		echo "2097152" > /proc/sys/net/core/wmem_max
-		echo "524288 1048576 2097152" > /proc/sys/net/ipv4/tcp_rmem
-		echo "0" > /proc/sys/net/ipv4/tcp_tw_recycle
-		echo "262144 524288 1048576" > /proc/sys/net/ipv4/tcp_wmem
-
-		echo "5" > /proc/sys/vm/dirty_background_ratio
-		echo "200" > /proc/sys/vm/dirty_expire_centisecs
-		echo "20" > /proc/sys/vm/dirty_ratio
-		echo "500" > /proc/sys/vm/dirty_writeback_centisecs
-		echo "3638" > /proc/sys/vm/min_free_kbytes
-		echo "60" > /proc/sys/vm/swappiness
-		echo "100" > /proc/sys/vm/vfs_cache_pressure
-		echo "0" > /proc/sys/vm/drop_caches
-
-		echo "5" > /proc/sys/net/ipv4/tcp_syn_retries
-		echo "5" > /proc/sys/net/ipv4/tcp_synack_retries
-		echo "60" > /proc/sys/net/ipv4/tcp_fin_timeout
-
-		insmod $LIBPATH/frandom.ko ;
-
-		if [ ! -e /dev/random.orig ]; then
-			busybox mv /dev/random /dev/random.orig
-			busybox ln /dev/erandom /dev/random
-			busybox chmod 644 /dev/random
-			busybox mv /dev/urandom /dev/urandom.orig
-			busybox ln /dev/erandom /dev/urandom
-			busybox chmod 644 /dev/urandom
-		fi
+		insmod $LIBPATH/frandom.ko
+		busybox ln -f /dev/erandom /dev/random
+		busybox chmod 644 /dev/random
+		busybox ln -f /dev/erandom /dev/urandom
+		busybox chmod 644 /dev/urandom
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "Boeffla tweaks" == "$2" ]; then
-		echo "32000" > /proc/sys/fs/inotify/max_queued_events
-		echo "524288" > /proc/sys/fs/file-max
-		echo "256" > /proc/sys/fs/inotify/max_user_instances
-		echo "10240" > /proc/sys/fs/inotify/max_user_watches
-		echo "10" > /proc/sys/fs/lease-break-time
-
-		echo "65536" > /proc/sys/kernel/msgmax
-		echo "2048" > /proc/sys/kernel/msgmni
-		echo "10" > /proc/sys/kernel/panic
-		echo "128" > /proc/sys/kernel/random/read_wakeup_threshold
-		echo "256" > /proc/sys/kernel/random/write_wakeup_threshold
-		echo "18000000" > /proc/sys/kernel/sched_latency_ns
-		echo "3000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
-		echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-		echo "500 512000 64 2048" > /proc/sys/kernel/sem
-		echo "268435456" > /proc/sys/kernel/shmmax
-		echo "524288" > /proc/sys/kernel/threads-max
-
-		echo "524288" > /proc/sys/net/core/rmem_max
-		echo "524288" > /proc/sys/net/core/wmem_max
-		echo "6144 87380 524288" > /proc/sys/net/ipv4/tcp_rmem
-		echo "1" > /proc/sys/net/ipv4/tcp_tw_recycle
-		echo "6144 87380 524288" > /proc/sys/net/ipv4/tcp_wmem
-
 		echo "70" > /proc/sys/vm/dirty_background_ratio
 		echo "250" > /proc/sys/vm/dirty_expire_centisecs
 		echo "90" > /proc/sys/vm/dirty_ratio
@@ -1178,46 +1141,11 @@ if [ "apply_system_tweaks" == "$1" ]; then
 		echo "60" > /proc/sys/vm/swappiness
 		echo "10" > /proc/sys/vm/vfs_cache_pressure
 		echo "3" > /proc/sys/vm/drop_caches
-
-		echo "5" > /proc/sys/net/ipv4/tcp_syn_retries
-		echo "5" > /proc/sys/net/ipv4/tcp_synack_retries
-		echo "60" > /proc/sys/net/ipv4/tcp_fin_timeout
-
-		if [ -e /dev/random.orig ]; then
-			busybox rm /dev/random
-			busybox mv /dev/random.orig /dev/random
-			busybox chmod 644 /dev/random
-			busybox rm /dev/urandom
-			busybox mv /dev/urandom.orig /dev/urandom
-			busybox chmod 644 /dev/urandom
-		fi
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "Speedmod tweaks" == "$2" ]; then
-		echo "16384" > /proc/sys/fs/inotify/max_queued_events
-		echo "77749" > /proc/sys/fs/file-max
-		echo "128" > /proc/sys/fs/inotify/max_user_instances
-		echo "8192" > /proc/sys/fs/inotify/max_user_watches
-		echo "45" > /proc/sys/fs/lease-break-time
-
-		echo "8192" > /proc/sys/kernel/msgmax
-		echo "1250" > /proc/sys/kernel/msgmni
-		echo "1" > /proc/sys/kernel/panic
-		echo "64" > /proc/sys/kernel/random/read_wakeup_threshold
-		echo "128" > /proc/sys/kernel/random/write_wakeup_threshold
-		echo "6666666" > /proc/sys/kernel/sched_latency_ns
-		echo "1333332" > /proc/sys/kernel/sched_wakeup_granularity_ns
-		echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-		echo "250 32000 32 128" > /proc/sys/kernel/sem
-		echo "33554432" > /proc/sys/kernel/shmmax
-		echo "12151" > /proc/sys/kernel/threads-max
-
-		echo "131071" > /proc/sys/net/core/rmem_max
-		echo "2097152" > /proc/sys/net/core/wmem_max
-		echo "524288 1048576 2097152" > /proc/sys/net/ipv4/tcp_rmem
-		echo "0" > /proc/sys/net/ipv4/tcp_tw_recycle
-		echo "262144 524288 1048576" > /proc/sys/net/ipv4/tcp_wmem
-
 		echo "5" > /proc/sys/vm/dirty_background_ratio
 		echo "200" > /proc/sys/vm/dirty_expire_centisecs
 		echo "20" > /proc/sys/vm/dirty_ratio
@@ -1226,46 +1154,11 @@ if [ "apply_system_tweaks" == "$1" ]; then
 		echo "0" > /proc/sys/vm/swappiness
 		echo "100" > /proc/sys/vm/vfs_cache_pressure
 		echo "0" > /proc/sys/vm/drop_caches
-
-		echo "2" > /proc/sys/net/ipv4/tcp_syn_retries
-		echo "2" > /proc/sys/net/ipv4/tcp_synack_retries
-		echo "10" > /proc/sys/net/ipv4/tcp_fin_timeout
-
-		if [ -e /dev/random.orig ]; then
-			busybox rm /dev/random
-			busybox mv /dev/random.orig /dev/random
-			busybox chmod 644 /dev/random
-			busybox rm /dev/urandom
-			busybox mv /dev/urandom.orig /dev/urandom
-			busybox chmod 644 /dev/urandom
-		fi
+		busybox sleep 0.5s
+		busybox sync
 	fi
 
 	if [ "Mattiadj tweaks" == "$2" ]; then
-		echo "16384" > /proc/sys/fs/inotify/max_queued_events
-		echo "77749" > /proc/sys/fs/file-max
-		echo "128" > /proc/sys/fs/inotify/max_user_instances
-		echo "8192" > /proc/sys/fs/inotify/max_user_watches
-		echo "45" > /proc/sys/fs/lease-break-time
-
-		echo "8192" > /proc/sys/kernel/msgmax
-		echo "1250" > /proc/sys/kernel/msgmni
-		echo "1" > /proc/sys/kernel/panic
-		echo "64" > /proc/sys/kernel/random/read_wakeup_threshold
-		echo "128" > /proc/sys/kernel/random/write_wakeup_threshold
-		echo "6666666" > /proc/sys/kernel/sched_latency_ns
-		echo "1333332" > /proc/sys/kernel/sched_wakeup_granularity_ns
-		echo "1500000" > /proc/sys/kernel/sched_min_granularity_ns
-		echo "250 32000 32 128" > /proc/sys/kernel/sem
-		echo "33554432" > /proc/sys/kernel/shmmax
-		echo "12151" > /proc/sys/kernel/threads-max
-
-		echo "131071" > /proc/sys/net/core/rmem_max
-		echo "2097152" > /proc/sys/net/core/wmem_max
-		echo "524288 1048576 2097152" > /proc/sys/net/ipv4/tcp_rmem
-		echo "0" > /proc/sys/net/ipv4/tcp_tw_recycle
-		echo "262144 524288 1048576" > /proc/sys/net/ipv4/tcp_wmem
-
 		echo "10" > /proc/sys/vm/dirty_background_ratio
 		echo "500" > /proc/sys/vm/dirty_expire_centisecs
 		echo "10" > /proc/sys/vm/dirty_ratio
@@ -1274,19 +1167,8 @@ if [ "apply_system_tweaks" == "$1" ]; then
 		echo "70" > /proc/sys/vm/swappiness
 		echo "500" > /proc/sys/vm/vfs_cache_pressure
 		echo "0" > /proc/sys/vm/drop_caches
-
-		echo "5" > /proc/sys/net/ipv4/tcp_syn_retries
-		echo "5" > /proc/sys/net/ipv4/tcp_synack_retries
-		echo "60" > /proc/sys/net/ipv4/tcp_fin_timeout
-
-		if [ -e /dev/random.orig ]; then
-			busybox rm /dev/random
-			busybox mv /dev/random.orig /dev/random
-			busybox chmod 644 /dev/random
-			busybox rm /dev/urandom
-			busybox mv /dev/urandom.orig /dev/urandom
-			busybox chmod 644 /dev/urandom
-		fi
+		busybox sleep 0.5s
+		busybox sync
 	fi
 	exit 0
 fi
@@ -1303,17 +1185,17 @@ fi
 if [ "apply_ext4_tweaks" == "$1" ]; then
 	if [ "1" == "$2" ]; then
 		busybox sync
-		mount -o remount,commit=20,noatime /dev/block/mmcblk0p8 /cache
+		mount -o remount,commit=20,noatime $CACHE_DEVICE /cache
 		busybox sync
-		mount -o remount,commit=20,noatime /dev/block/mmcblk0p12 /data
+		mount -o remount,commit=20,noatime $DATA_DEVICE /data
 		busybox sync
 	fi
 
 	if [ "0" == "$2" ]; then
 		busybox sync
-		mount -o remount,commit=0,noatime /dev/block/mmcblk0p8 /cache
+		mount -o remount,commit=0,noatime $CACHE_DEVICE /cache
 		busybox sync
-		mount -o remount,commit=0,noatime /dev/block/mmcblk0p12 /data
+		mount -o remount,commit=0,noatime $DATA_DEVICE /data
 		busybox sync
 	fi
 	exit 0
@@ -1332,6 +1214,8 @@ if [ "apply_zram" == "$1" ]; then
 			echo "1" > /sys/block/zram3/reset
 			busybox mkswap /dev/block/zram0
 			busybox swapon -p 2 /dev/block/zram0
+			busybox sleep 0.5s
+			busybox sync
 		fi
 		if [ "2" == "$3" ]; then
 			busybox swapoff /dev/block/zram0
@@ -1346,6 +1230,8 @@ if [ "apply_zram" == "$1" ]; then
 			busybox mkswap /dev/block/zram1
 			busybox swapon -p 2 /dev/block/zram0
 			busybox swapon -p 2 /dev/block/zram1
+			busybox sleep 0.5s
+			busybox sync
 		fi
 		if [ "4" == "$3" ]; then
 			busybox swapoff /dev/block/zram0
@@ -1364,6 +1250,8 @@ if [ "apply_zram" == "$1" ]; then
 			busybox swapon -p 2 /dev/block/zram1
 			busybox swapon -p 2 /dev/block/zram2
 			busybox swapon -p 2 /dev/block/zram3
+			busybox sleep 0.5s
+			busybox sync
 		fi
 		echo "80" > /proc/sys/vm/swappiness
 	fi
@@ -1377,6 +1265,8 @@ if [ "apply_zram" == "$1" ]; then
 		echo "1" > /sys/block/zram1/reset
 		echo "1" > /sys/block/zram2/reset
 		echo "1" > /sys/block/zram3/reset
+		busybox sleep 0.5s
+		busybox sync
 	fi
 	exit 0
 fi
@@ -1887,9 +1777,9 @@ fi
 
 if [ "action_clean_initd" == "$1" ]; then
 	busybox tar cvz -f $2 /system/etc/init.d
-	mount -o remount,rw -t ext4 /dev/block/mmcblk0p9 /system
+	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 	busybox rm /system/etc/init.d/*
-	mount -o remount,ro -t ext4 /dev/block/mmcblk0p9 /system
+	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	exit 0
 fi
 
@@ -1915,7 +1805,7 @@ fi
 
 
 if [ "flash_kernel" == "$1" ]; then
-	busybox dd if=$2 of=/dev/block/mmcblk0p5
+	busybox dd if=$2 of=$BOOT_DEVICE
 	exit 0
 fi
 
@@ -1938,7 +1828,7 @@ if [ "extract_kernel" == "$1" ]; then
 fi
 
 if [ "flash_recovery" == "$1" ]; then
-	busybox dd if=$2 of=/dev/block/mmcblk0p6
+	busybox dd if=$2 of=$RECOVERY_DEVICE
 	exit 0
 fi
 
@@ -1948,7 +1838,7 @@ if [ "extract_recovery" == "$1" ]; then
 fi
 
 if [ "flash_modem" == "$1" ]; then
-	busybox dd if=$2 of=/dev/block/mmcblk0p7
+	busybox dd if=$2 of=$RADIO_DEVICE
 	exit 0
 fi
 
@@ -1958,12 +1848,12 @@ if [ "extract_modem" == "$1" ]; then
 fi
 
 if [ "flash_cm_kernel" == "$1" ]; then
-	busybox dd if=$2/boot.img of=/dev/block/mmcblk0p5
-	mount -o remount,rw -t ext4 /dev/block/mmcblk0p9 /system
+	busybox dd if=$2/boot.img of=$BOOT_DEVICE
+	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 	busybox rm -f /system/lib/modules/*
 	busybox cp $2/system/lib/modules/* /system/lib/modules
 	busybox chmod 644 /system/lib/modules/*
-	mount -o remount,ro -t ext4 /dev/block/mmcblk0p9 /system
+	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	exit 0
 fi
 

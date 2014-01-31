@@ -31,6 +31,7 @@ BOEFFLA_STARTCONFIG_DONE="/data/.boeffla/startconfig_done"
 CWM_RESET_ZIP="boeffla-config-reset-v2.zip"
 INITD_ENABLER="/data/.boeffla/enable-initd"
 BUSYBOX_ENABLER="/data/.boeffla/enable-busybox"
+FRANDOM_ENABLER="/data/.boeffla/enable-frandom"
 
 
 # If not yet exists, create a boeffla-kernel-data folder on sdcard 
@@ -54,6 +55,27 @@ BUSYBOX_ENABLER="/data/.boeffla/enable-busybox"
 	echo "=========================" >> $BOEFFLA_LOGFILE
 	/sbin/busybox grep ro.build.version /system/build.prop >> $BOEFFLA_LOGFILE
 	echo "=========================" >> $BOEFFLA_LOGFILE
+
+# Activate frandom entropy generator if configured
+	if [ -f $FRANDOM_ENABLER ]; then
+		echo $(date) "Frandom entropy generator activation requested" >> $BOEFFLA_LOGFILE
+		/sbin/busybox insmod /lib/modules/frandom.ko
+		/sbin/busybox insmod /system/lib/modules/frandom.ko
+
+		if [ ! -e /dev/urandom.ORIG ] && [ ! -e /dev/urandom.orig ] && [ ! -e /dev/urandom.ori ]; then
+			/sbin/busybox touch /dev/urandom.MOD
+			/sbin/busybox touch /dev/random.MOD
+			/sbin/busybox mv /dev/urandom /dev/urandom.ORIG
+			/sbin/busybox ln /dev/erandom /dev/urandom
+			/sbin/busybox busybox chmod 644 /dev/urandom
+			/sbin/busybox mv /dev/random /dev/random.ORIG
+			/sbin/busybox ln /dev/erandom /dev/random
+			/sbin/busybox busybox chmod 644 /dev/random
+			/sbin/busybox sleep 0.5s
+			/sbin/busybox sync
+			echo $(date) "Frandom entropy generator activated" >> $BOEFFLA_LOGFILE
+		fi
+	fi
 
 # Install busybox applet symlinks to /system/xbin if enabled,
 # otherwise only install mount/umount/top symlinks

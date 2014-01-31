@@ -12,8 +12,8 @@
 KERNEL_SPECS="n5110;samsung;jb42;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
 
 # kernel features 
-# (1=enable-busybox)
-KERNEL_FEATURES="-1-"
+# (1=enable-busybox,2=enable-frandom)
+KERNEL_FEATURES="-1-2-"
 
 # path to kernel libraries
 LIBPATH="/lib/modules"				# Samsung
@@ -63,7 +63,7 @@ if [ "lov_eq_gain_profiles" == "$1" ]; then
 fi
 
 if [ "lov_system_tweaks" == "$1" ]; then
-	echo "Off;Frandom tweaks;Boeffla tweaks;Speedmod tweaks;Mattiadj tweaks"
+	echo "Off;Boeffla tweaks;Speedmod tweaks;Mattiadj tweaks"
 	exit 0
 fi
 
@@ -1118,16 +1118,6 @@ if [ "apply_system_tweaks" == "$1" ]; then
 		echo "60" > /proc/sys/vm/swappiness
 		echo "100" > /proc/sys/vm/vfs_cache_pressure
 		echo "0" > /proc/sys/vm/drop_caches
-		busybox sleep 0.5s
-		busybox sync
-	fi
-
-	if [ "Frandom tweaks" == "$2" ]; then
-		insmod $LIBPATH/frandom.ko
-		busybox ln -f /dev/erandom /dev/random
-		busybox chmod 644 /dev/random
-		busybox ln -f /dev/erandom /dev/urandom
-		busybox chmod 644 /dev/urandom
 		busybox sleep 0.5s
 		busybox sync
 	fi

@@ -12,8 +12,8 @@
 KERNEL_SPECS="n5110;samsung;jb42;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
 
 # kernel features 
-# (1=enable-busybox,2=enable-frandom)
-KERNEL_FEATURES="-1-2-"
+# (1=enable-busybox,2=enable-frandom,3=wipe-cache)
+KERNEL_FEATURES="-1-2-3-"
 
 # path to kernel libraries
 LIBPATH="/lib/modules"				# Samsung
@@ -1759,6 +1759,13 @@ if [ "action_wipe_caches_reboot" == "$1" ]; then
 	exit 0
 fi
 
+if [ "action_wipe_cache" == "$1" ]; then
+	busybox rm -rf /cache/*
+	busybox sync
+	busybox sleep 1s
+	exit 0
+fi
+
 if [ "action_wipe_clipboard_cache" == "$1" ]; then
 	busybox rm -rf /data/clipboard/*
 	busybox sync
@@ -1774,7 +1781,21 @@ if [ "action_clean_initd" == "$1" ]; then
 fi
 
 if [ "action_fix_permissions" == "$1" ]; then
-	busybox sh /res/bc/fix_permissions
+	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+
+	# User apps
+	busybox chmod 644 /data/app/*.apk
+	busybox chown 1000:1000 /data/app/*.apk
+	# System apps
+	busybox chmod 644 /system/app/*.apk
+	busybox chown 0:0 /system/app/*.apk
+	# System framework
+	busybox chmod 644 /system/framework/*.apk
+	busybox chown 0:0 /system/framework/*.apk
+	busybox chmod 644 /system/framework/*.jar
+	busybox chown 0:0 /system/framework/*.jar
+
+	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	busybox sync
 	exit 0
 fi

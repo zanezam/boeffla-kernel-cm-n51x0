@@ -1115,6 +1115,27 @@ if [ "apply_governor_profile" == "$1" ]; then
 		busybox sync
 	fi
 	
+	if [ "intelliactive - standard" == "$2" ]; then
+		echo "20000" > /sys/devices/system/cpu/cpufreq/intelliactive/above_hispeed_delay 
+		echo "0" > /sys/devices/system/cpu/cpufreq/intelliactive/boost
+		echo "" > /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse
+		echo "80000" > /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse_duration
+		echo "99" > /sys/devices/system/cpu/cpufreq/intelliactive/go_hispeed_load
+		echo "1400000" > /sys/devices/system/cpu/cpufreq/intelliactive/hispeed_freq
+		echo "1" > /sys/devices/system/cpu/cpufreq/intelliactive/io_is_busy
+		echo "80000" > /sys/devices/system/cpu/cpufreq/intelliactive/min_sample_time
+		echo "0" > /sys/devices/system/cpu/cpufreq/intelliactive/sampling_down_factor
+		echo "729600" > /sys/devices/system/cpu/cpufreq/intelliactive/sync_freq
+		echo "90" > /sys/devices/system/cpu/cpufreq/intelliactive/target_loads
+		echo "20000" > /sys/devices/system/cpu/cpufreq/intelliactive/timer_rate
+		echo "80000" > /sys/devices/system/cpu/cpufreq/intelliactive/timer_slack
+		echo "1728000,1728000,1728000,1728000" > /sys/devices/system/cpu/cpufreq/intelliactive/two_phase_freq
+		echo "960000" > /sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_freq
+		echo "95" > /sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_load
+
+		busybox sleep 0.5s
+		busybox sync
+	fi
 	exit 0
 fi
 

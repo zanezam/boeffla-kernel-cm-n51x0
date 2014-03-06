@@ -1351,6 +1351,24 @@ if [ "apply_exfat" == "$1" ]; then
 	exit 0
 fi
 
+if [ "apply_usb_ethernet" == "$1" ]; then
+	if [ "1" == "$2" ]; then
+		insmod $LIBPATH/mii.ko
+		insmod $LIBPATH/usbnet.ko
+		insmod $LIBPATH/asix.ko
+		netcfg eth0 up
+		netcfg eth0 dhcp
+	fi
+
+	if [ "0" == "$2" ]; then
+		rmmod $LIBPATH/asix.ko
+		rmmod $LIBPATH/usbnet.ko
+		rmmod $LIBPATH/mii.ko
+		netcfg eth0 down
+	fi
+	exit 0
+fi
+
 if [ "apply_ntfs" == "$1" ]; then
 	if [ "1" == "$2" ]; then
 		insmod $LIBPATH/ntfs.ko

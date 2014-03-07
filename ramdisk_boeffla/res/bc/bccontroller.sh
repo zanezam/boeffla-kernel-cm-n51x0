@@ -1357,7 +1357,7 @@ if [ "apply_usb_ethernet" == "$1" ]; then
 		insmod $LIBPATH/usbnet.ko
 		insmod $LIBPATH/asix.ko
 		netcfg eth0 up
-		netcfg eth0 dhcp
+		netcfg eth0 dhcp &
 	fi
 
 	if [ "0" == "$2" ]; then

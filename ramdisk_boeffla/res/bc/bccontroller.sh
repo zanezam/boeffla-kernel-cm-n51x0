@@ -33,7 +33,7 @@ RECOVERY_DEVICE="/dev/block/mmcblk0p6"
 # *******************
 
 if [ "lov_gov_profiles" == "$1" ]; then
-	echo "pegasusq - boeffla moderate;pegasusq - boeffla battery saving;pegasusq - boeffla 1 core;pegasusq - boeffla 2 cores;pegasusq - speedmod;zzmoove - optimal;zzmoove - battery;zzmoove - battery yank;zzmoove - battery extreme yank;zzmoove - performance;zzmoove - insane;pegasusqplus - balanced;pegasusqplus - battery"
+	echo "pegasusq - boeffla moderate;pegasusq - boeffla battery saving;pegasusq - boeffla 1 core;pegasusq - boeffla 2 cores;pegasusq - speedmod;zzmoove - optimal;zzmoove - battery;zzmoove - battery plus;zzmoove - battery yank;zzmoove - battery extreme yank;zzmoove - performance;zzmoove - insane;zzmoove - moderate;zzmoove - game;pegasusqplus - balanced;pegasusqplus - battery"
 	exit 0
 fi
 
@@ -1124,6 +1124,186 @@ if [ "apply_governor_profile" == "$1" ]; then
 		busybox sync
 	fi
 
+	if [ "zzmoove - battery plus" == "$2" ]; then
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+		echo "70" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold
+		echo "20" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug1
+		echo "70" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug2
+		echo "80" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug3
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq1
+		echo "600000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq2
+		echo "1100000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq3
+		echo "66" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_sleep
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/early_demand
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/early_demand_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit_sleep
+		echo "15" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step_sleep
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold
+		echo "28" > /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold_sleep
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_up_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_down_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_freq
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/ignore_nice_load
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_enable
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_cores
+		echo "20" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_down_delay
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_freq
+		echo "50" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_up_delay
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_factor
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_max_momentum
+		echo "50" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_momentum_sensitivity
+		echo "120000" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate
+		echo "200000" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle_delay
+		echo "40" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle_threshold
+		echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_sleep_multiplier
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_freq
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_threshold
+		echo "2" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_force_down
+		echo "80" > /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up_sleep
+		echo "75" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold
+		echo "20" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug1
+		echo "50" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug2
+		echo "90" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug3
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq1
+		echo "1100000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq2
+		echo "1200000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq3
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/legacy_mode 
+
+		busybox sleep 0.5s
+		busybox sync
+	fi
+
+	if [ "zzmoove - moderate" == "$2" ]; then
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+		echo "52" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold
+		echo "10" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug1
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug2
+		echo "70" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug3
+		echo "300000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq1
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq2
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq3
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_sleep
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/early_demand
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/early_demand_sleep
+		echo "3" > /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit_sleep
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step_sleep
+		echo "40" > /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold
+		echo "28" > /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold_sleep
+		echo "10" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_up_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_down_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_freq
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/ignore_nice_load
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_enable
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_cores
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_down_delay
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_freq
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_up_delay
+		echo "3" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_factor
+		echo "20" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_max_momentum
+		echo "50" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_momentum_sensitivity
+		echo "45000" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate
+		echo "100000" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle_delay
+		echo "40" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle_threshold
+		echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_sleep_multiplier
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_freq
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_threshold
+		echo "2" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_force_down
+		echo "68" > /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up_sleep
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold
+		echo "15" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug1
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug2
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug3
+		echo "400000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq1
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq2
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq3
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/legacy_mode 
+
+		busybox sleep 0.5s
+		busybox sync
+	fi
+
+	if [ "zzmoove - game" == "$2" ]; then
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep
+		echo "20" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold
+		echo "25" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug1
+		echo "35" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug2
+		echo "45" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug3
+		echo "300000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq1
+		echo "700000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq2
+		echo "900000" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq3
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_sleep
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/early_demand
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/early_demand_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling
+		echo "2" > /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit_sleep
+		echo "25" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/freq_step_sleep
+		echo "25" > /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold
+		echo "28" > /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_up_cycles
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_down_cycles
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_freq
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/ignore_nice_load
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_enable
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_cores
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_down_delay
+		echo "500000" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_freq
+		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_up_delay
+		echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_factor
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_max_momentum
+		echo "20" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_momentum_sensitivity
+		echo "40000" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate
+		echo "100000" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle_delay
+		echo "40" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_idle_threshold
+		echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_sleep_multiplier
+		echo "15" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_cycles
+		echo "1100000" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_freq
+		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_threshold
+		echo "3" > /sys/devices/system/cpu/cpufreq/zzmoove/scaling_block_force_down
+		echo "70" > /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up_sleep
+		echo "60" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold
+		echo "65" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug1
+		echo "75" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug2
+		echo "85" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug3
+		echo "400000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq1
+		echo "800000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq2
+		echo "1000000" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq3
+		echo "100" > /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_sleep
+		echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/legacy_mode 
+
+		busybox sleep 0.5s
+		busybox sync
+	fi
+	
 	if [ "lulzactiveq - standard" == "$2" ]; then
 		echo "20" >/sys/devices/system/cpu/cpufreq/lulzactiveq/cpu_down_rate
 		echo "10" >/sys/devices/system/cpu/cpufreq/lulzactiveq/cpu_up_rate

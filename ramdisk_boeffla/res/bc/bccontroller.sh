@@ -1475,6 +1475,37 @@ if [ "action_debug_info_file" == "$1" ]; then
 	cat /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate_min >> $2
 	cat /sys/devices/system/cpu/cpufreq/ondemand/up_threshold >> $2
 
+	echo -e "\n**** smartassv2 tuneables\n" >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/awake_ideal_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/debug_mask >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/down_rate_us >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/max_cpu_load >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/min_cpu_load >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/ramp_down_step >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/ramp_up_step >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/sample_rate_jiffies >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/sleep_ideal_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/sleep_wakeup_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/smartassV2/up_rate_us >> $2
+
+	echo -e "\n**** intelliactive tuneables\n" >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/above_hispeed_delay >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/boost >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse_duration >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/go_hispeed_load >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/hispeed_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/io_is_busy >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/min_sample_time >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/sampling_down_factor >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/sync_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/target_loads >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/timer_rate >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/timer_slack >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/two_phase_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_freq >> $2
+	cat /sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_load >> $2
+
 	echo -e "\n============================================\n" >> $2
 
 	echo -e "\n**** /data/app folder\n" >> $2
@@ -1506,6 +1537,8 @@ if [ "action_debug_info_file" == "$1" ]; then
 
 	echo -e "\n============================================\n" >> $2
 	echo $(date) Full debug log file end >> $2
+
+	busybox chmod 666 $2
 	exit 0
 fi
 

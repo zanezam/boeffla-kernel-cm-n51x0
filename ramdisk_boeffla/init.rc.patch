@@ -1,0 +1,41 @@
+From 2b568e51c12c68afa67e65f31262f2310d1a38ad Mon Sep 17 00:00:00 2001
+From: ZaneZam <cyxman@yahoo.com>
+Date: Sun, 6 Jul 2014 16:42:58 +0200
+Subject: [PATCH] init.rc patch
+
+---
+ init.rc | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/init.rc b/init.rc
+index d419973..dea10ca 100755
+--- a/init.rc
++++ b/init.rc
+@@ -732,13 +732,6 @@ service powersnd /system/bin/samsungpowersoundplay
+      disabled
+      oneshot
+ 
+-service bootanim /system/bin/bootanimation
+-    class main
+-    user graphics
+-    group graphics
+-    disabled
+-    oneshot
+-
+ service installd /system/bin/installd
+     class main
+     socket installd stream 600 system system
+@@ -824,3 +817,10 @@ service drsd /system/bin/drsd
+ 
+ on property:sys.boot_completed=1
+     selinux_restore -e
++
++# Call Boeffla-Kernel init script
++service boeffla-init /sbin/boeffla-init.sh
++    class main
++    user root
++    group root
++    oneshot
+-- 
+1.8.4.5
+

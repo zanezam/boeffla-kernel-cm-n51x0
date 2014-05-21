@@ -26,7 +26,7 @@ if [ "lov_gov_profiles" == "$1" ]; then
 fi
 
 if [ "lov_cpu_volt_profiles" == "$1" ]; then
-	echo "undervolt -25mV;undervolt -50mV;undervolt -75mV;undervolt -100mV;undervolt light;undervolt medium;undervolt heavy"
+	echo "No undervolting;undervolt -25mV;undervolt -50mV;undervolt -75mV;undervolt -100mV;undervolt light;undervolt medium;undervolt heavy"
 	exit 0
 fi
 
@@ -36,7 +36,7 @@ if [ "lov_gpu_freq_profiles" == "$1" ]; then
 fi
 
 if [ "lov_gpu_volt_profiles" == "$1" ]; then
-	echo "undervolt -25mV;undervolt -50mV;undervolt -75mV;undervolt -100mV;undervolt light;undervolt medium;undervolt heavy;overvolt +25mV;overvolt +50mV;overvolt +75mV;overvolt +100mV"
+	echo "No undervolting;undervolt -25mV;undervolt -50mV;undervolt -75mV;undervolt -100mV;undervolt light;undervolt medium;undervolt heavy;overvolt +25mV;overvolt +50mV;overvolt +75mV;overvolt +100mV"
 	exit 0
 fi
 
@@ -176,6 +176,9 @@ fi
 
 
 if [ "conf_gpu_volt" == "$1" ]; then
+	if [ "No undervolting" == "$2" ]; then
+		echo "0;0;0;0;0"
+	fi
 	if [ "undervolt -25mV" == "$2" ]; then
 		echo "-25000;-25000;-25000;-25000"
 	fi
@@ -213,6 +216,9 @@ if [ "conf_gpu_volt" == "$1" ]; then
 fi
 
 if [ "conf_cpu_volt" == "$1" ]; then
+	if [ "No undervolting" == "$2" ]; then
+		echo "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+	fi
 	if [ "undervolt -25mV" == "$2" ]; then
 		echo "-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25"
 	fi

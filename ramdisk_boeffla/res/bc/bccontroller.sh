@@ -63,32 +63,32 @@ fi
 if [ "lov_presets" == "$1" ]; then
 	# Note, the ^ sign will be translated into newline for this setting
 	echo "Power extreme~"
-	echo "Gov: lulzactiveq / no profile"
+	echo "Gov: pegasusq / standard"
 	echo "^Sched: row / row"
 	echo "^CPU: 1800 / no uv"
 	echo "^GPU: 440-700 / +50mV;"
 	
 	echo "Power~"
-	echo "Gov: zzmoove / zzmoove-performance"
+	echo "Gov: zzmoove / performance"
 	echo "^Sched: row / row"
 	echo "^CPU: 1704 / no uv"
 	echo "^GPU: 266-533 / no uv;"
 	
 	echo "Standard~"
-	echo "Gov: pegasusq / no profile"
+	echo "Gov: pegasusq / standard"
 	echo "^Sched: cfq / cfq"
 	echo "^CPU: 1600 / no uv"
 	echo "^GPU: 160-440 / no uv;"
 	
 	echo "Battery friendly~"
-	echo "Gov: pegasusq / boeffla-moderate"
-	echo "^Sched: cfq / cfq"
+	echo "Gov: pegasusq / boeffla - moderate"
+	echo "^Sched: zen / zen"
 	echo "^CPU: 1600 / -25mV"
 	echo "^GPU: 160/266 / -25mV;"
 	
 	echo "Battery saving~"
-	echo "Gov: zzmoove / zzmoove-battery"
-	echo "^Sched: cfq / cfq"
+	echo "Gov: zzmoove / battery yank"
+	echo "^Sched: zen / zen"
 	echo "^CPU: 1000 / light uv"
 	echo "^GPU: 160/266 / light uv;"
 	
@@ -103,7 +103,7 @@ fi
 if [ "conf_presets" == "$1" ]; then
 	if [ "Power extreme" ==  "$2" ]; then
 		# gov, gov prof, sched int, sched ext, cpu max, cpu uv, gpu freq, gpu uv
-		echo "lulzactiveq;None;"
+		echo "pegasusq;standard;"
 		echo "row;row;"
 		echo "1800000;None;"
 		echo "440/533/600/700;overvolt +50mV"
@@ -117,7 +117,7 @@ if [ "conf_presets" == "$1" ]; then
 	fi
 	if [ "Standard" ==  "$2" ]; then
 		# gov, gov prof, sched int, sched ext, cpu max, cpu uv, gpu freq, gpu uv
-		echo "pegasusq;None;"
+		echo "pegasusq;standard;"
 		echo "cfq;cfq;"
 		echo "1600000;None;"
 		echo "None;None"
@@ -125,14 +125,14 @@ if [ "conf_presets" == "$1" ]; then
 	if [ "Battery friendly" ==  "$2" ]; then
 		# gov, gov prof, sched int, sched ext, cpu max, cpu uv, gpu freq, gpu uv
 		echo "pegasusq;pegasusq - boeffla moderate;"
-		echo "cfq;cfq;"
+		echo "zen;zen;"
 		echo "1600000;undervolt -25mV;"
 		echo "160/266;undervolt -25mV"
 	fi
 	if [ "Battery saving" ==  "$2" ]; then
 		# gov, gov prof, sched int, sched ext, cpu max, cpu uv, gpu freq, gpu uv
-		echo "zzmoove;zzmoove - battery;"
-		echo "cfq;cfq;"
+		echo "zzmoove;zzmoove - battery yank;"
+		echo "zen;zen;"
 		echo "1000000;undervolt light;"
 		echo "160/266;undervolt light"
 	fi

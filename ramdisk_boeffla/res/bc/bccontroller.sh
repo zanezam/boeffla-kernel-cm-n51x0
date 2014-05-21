@@ -11,6 +11,10 @@
 # kernel specification (hardware; type; target; url)
 KERNEL_SPECS="n5110;samsung;jb42;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
 
+# kernel features 
+# (1=enable-busybox)
+KERNEL_FEATURES="-1-"
+
 # path to kernel libraries
 LIBPATH="/lib/modules"				# Samsung
 #LIBPATH="/system/lib/modules"		# Cyanogenmod+Omni
@@ -394,6 +398,10 @@ if [ "get_kernel_specs" == "$1" ]; then
 	exit 0
 fi
 
+if [ "get_kernel_features" == "$1" ]; then
+	echo $KERNEL_FEATURES
+	exit 0
+fi
 
 # *******************
 # Applying settings

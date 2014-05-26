@@ -1,17 +1,28 @@
-From 2b568e51c12c68afa67e65f31262f2310d1a38ad Mon Sep 17 00:00:00 2001
+From 61ffa9595f24bbec7691a0eb84a07773ec18868e Mon Sep 17 00:00:00 2001
 From: ZaneZam <cyxman@yahoo.com>
 Date: Sun, 6 Jul 2014 16:42:58 +0200
 Subject: [PATCH] init.rc patch
 
 ---
- init.rc | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ init.rc | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
 diff --git a/init.rc b/init.rc
-index d419973..dea10ca 100755
+index d419973..4ea4279 100755
 --- a/init.rc
 +++ b/init.rc
-@@ -732,13 +732,6 @@ service powersnd /system/bin/samsungpowersoundplay
+@@ -147,6 +147,10 @@ loglevel 3
+ # This is needed by any process that uses socket tagging.
+     chmod 0644 /dev/xt_qtaguid
+ 
++# ko files for exfat -> AP: modules instead compiled into kernel
++    insmod /lib/modules/exfat_core.ko
++    insmod /lib/modules/exfat_fs.ko
++
+ on fs
+ # mount mtd partitions
+     # Mount /system rw first to give the filesystem a chance to save a checkpoint
+@@ -732,13 +736,6 @@ service powersnd /system/bin/samsungpowersoundplay
       disabled
       oneshot
  
@@ -25,7 +36,7 @@ index d419973..dea10ca 100755
  service installd /system/bin/installd
      class main
      socket installd stream 600 system system
-@@ -824,3 +817,10 @@ service drsd /system/bin/drsd
+@@ -824,3 +821,10 @@ service drsd /system/bin/drsd
  
  on property:sys.boot_completed=1
      selinux_restore -e

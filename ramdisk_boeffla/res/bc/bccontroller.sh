@@ -1,6 +1,6 @@
 # Boeffla-Config controller interface
 #
-# Version: n5110 2.2 alpha1, no charging interface
+# Version: n5110 by ZaneZam (no UMS and notification led functionality, 19 CPU freq/voltages, 5 GPU freq/voltages, touch to wake support active)
 #
 # (C) andip71
 
@@ -9,7 +9,7 @@
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5110;samsung;jb42;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
+KERNEL_SPECS="n5110;samsung;jb44;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
 
 # kernel features 
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache)
@@ -43,7 +43,7 @@ if [ "lov_cpu_volt_profiles" == "$1" ]; then
 fi
 
 if [ "lov_gpu_freq_profiles" == "$1" ]; then
-	echo "54 only;160 only;160/266;266/350;54/108/160/266;108/160/266/350;160/266/350/440 (default);266/350/440/533;350/440/533/600;440/533/600/700"
+	echo "54 only;160 only;160/266;266/350;54/108/160/200/266;108/160/200/266/350;160/266/350/440/533 (default);266/350/440/533/600;350/440/533/600/640;440/533/600/640/700"
 	exit 0
 fi
 
@@ -53,7 +53,7 @@ if [ "lov_gpu_volt_profiles" == "$1" ]; then
 fi
 
 if [ "lov_gpu_freq" == "$1" ]; then
-	echo "54;108;160;266;350;440;533;600;700"
+	echo "54;108;160;200;266;300;350;400;440;500;533;600;640;700"
 	exit 0
 fi
 
@@ -84,7 +84,7 @@ if [ "lov_presets" == "$1" ]; then
 	echo "Gov: zzmoove / performance"
 	echo "^Sched: row / row"
 	echo "^CPU: 1704 / no uv"
-	echo "^GPU: 266-533 / no uv;"
+	echo "^GPU: 266-600 / no uv;"
 	
 	echo "Standard~"
 	echo "Gov: pegasusq / standard"
@@ -118,14 +118,14 @@ if [ "conf_presets" == "$1" ]; then
 		echo "pegasusq;standard;"
 		echo "row;row;"
 		echo "1800000;None;"
-		echo "440/533/600/700;overvolt +50mV"
+		echo "440/533/600/640/700;overvolt +50mV"
 	fi
 	if [ "Power" ==  "$2" ]; then
 		# gov, gov prof, sched int, sched ext, cpu max, cpu uv, gpu freq, gpu uv
 		echo "zzmoove;zzmoove - performance;"
 		echo "row;row;"
 		echo "1704000;None;"
-		echo "266/350/440/533;None"
+		echo "266/350/440/533/600;None"
 	fi
 	if [ "Standard" ==  "$2" ]; then
 		# gov, gov prof, sched int, sched ext, cpu max, cpu uv, gpu freq, gpu uv
@@ -154,34 +154,34 @@ fi
 
 if [ "conf_gpu_freq" == "$1" ]; then
 	if [ "54 only" == "$2" ]; then
-		echo "54;54;54;54"
+		echo "54;54;54;54;54"
 	fi
 	if [ "160 only" == "$2" ]; then
-		echo "160;160;160;160"
+		echo "160;160;160;160;160"
 	fi
 	if [ "160/266" == "$2" ]; then
-		echo "160;160;266;266"
+		echo "160;160;160;266;266"
 	fi
 	if [ "266/350" == "$2" ]; then
-		echo "266;266;350;350"
+		echo "266;266;266;350;350"
 	fi
-	if [ "54/108/160/266" == "$2" ]; then
-		echo "54;108;160;266"
+	if [ "54/108/160/200/266" == "$2" ]; then
+		echo "54;108;160;200;266"
 	fi
-	if [ "108/160/266/350" == "$2" ]; then
-		echo "108 160 266 350"
+	if [ "108/160/200/266/350" == "$2" ]; then
+		echo "108;160;200;266;350"
 	fi
-	if [ "160/266/350/440 (default)" == "$2" ]; then
-		echo "160;266;350;440"
+	if [ "160/266/350/440/533 (default)" == "$2" ]; then
+		echo "160;266;350;440;533"
 	fi
-	if [ "266/350/440/533" == "$2" ]; then
-		echo "266;350;440;533"
+	if [ "266/350/440/533/600" == "$2" ]; then
+		echo "266;350;440;533;600"
 	fi
-	if [ "350/440/533/600" == "$2" ]; then
-		echo "350;440;533;600"
+	if [ "350/440/533/600/640" == "$2" ]; then
+		echo "350;440;533;600;640"
 	fi
-	if [ "440/533/600/700" == "$2" ]; then
-		echo "440;533;600;700"
+	if [ "440/533/600/640/700" == "$2" ]; then
+		echo "440;533;600;640;700"
 	fi
 	exit 0
 fi
@@ -192,44 +192,44 @@ if [ "conf_gpu_volt" == "$1" ]; then
 		echo "0;0;0;0;0"
 	fi
 	if [ "undervolt -25mV" == "$2" ]; then
-		echo "-25000;-25000;-25000;-25000"
+		echo "-25000;-25000;-25000;-25000;-25000"
 	fi
 	if [ "undervolt -50mV" == "$2" ]; then
-		echo "-50000;-50000;-50000;-50000"
+		echo "-50000;-50000;-50000;-50000;-50000"
 	fi
 	if [ "undervolt -75mV" == "$2" ]; then
-		echo "-75000;-75000;-75000;-75000"
+		echo "-75000;-75000;-75000;-75000;-75000"
 	fi
 	if [ "undervolt -100mV" == "$2" ]; then
-		echo "-100000;-100000;-100000;-100000"
+		echo "-100000;-100000;-100000;-100000;-100000"
 	fi
 	if [ "undervolt light" == "$2" ]; then
-		echo "-25000;-25000;-50000;-50000"
+		echo "-25000;-25000;-25000;-50000;-50000"
 	fi
 	if [ "undervolt medium" == "$2" ]; then
-		echo "-50000;-50000;-75000;-75000"
+		echo "-50000;-50000;-50000;-75000;-75000"
 	fi
 	if [ "undervolt heavy" == "$2" ]; then
-		echo "-75000;-75000;-100000;-100000"
+		echo "-75000;-75000;-75000;-100000;-100000"
 	fi
 	if [ "overvolt +25mV" == "$2" ]; then
-		echo "25000;25000;25000;25000"
+		echo "25000;25000;25000;25000;25000"
 	fi
 	if [ "overvolt +50mV" == "$2" ]; then
-		echo "50000;50000;50000;50000"
+		echo "50000;50000;50000;50000;50000"
 	fi
 	if [ "overvolt +75mV" == "$2" ]; then
-		echo "75000;75000;75000;75000"
+		echo "75000;75000;75000;75000;75000"
 	fi
 	if [ "overvolt +100mV" == "$2" ]; then
-		echo "100000;100000;100000;100000"
+		echo "100000;100000;100000;100000;100000"
 	fi
 	exit 0
 fi
 
 if [ "conf_cpu_volt" == "$1" ]; then
 	if [ "No undervolting" == "$2" ]; then
-		echo "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
+		echo "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0"
 	fi
 	if [ "undervolt -25mV" == "$2" ]; then
 		echo "-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25;-25"
@@ -321,21 +321,18 @@ fi
 
 if [ "param_gpu_uv" == "$1" ]; then
 	# GPU UV min/max/steps
-	echo "500000;1200000;25000"
+	echo "500000;1400000;25000"
 	exit 0
 fi
 
+# disabled for n5110 version as this device has no notification led
 if [ "param_led" == "$1" ]; then
-	# LED speed min/max/steps
-#	echo "1;5;1;"
-	# LED brightness min/max/steps
-#	echo "5;130;5"
 	exit 0
 fi
 
 if [ "param_touchwake" == "$1" ]; then
 	# Touchwake min/max/steps
-#	echo "0;600000;5000"
+	echo "0;600000;5000"
 	exit 0
 fi
 
@@ -353,11 +350,11 @@ fi
 
 if [ "param_charge_rates" == "$1" ]; then
 	# AC charge min/max/steps
-#	echo "100;1600;25;"
+	echo "100;1600;25;"
 	# USB charge min/max/steps
-#	echo "0;1600;25;"
+	echo "0;1600;25;"
 	# Wireless charge min/max/steps
-#	echo "100;1000;25"
+	echo "100;1000;25"
 	exit 0
 fi
 
@@ -372,13 +369,14 @@ fi
 # Get settings
 # *******************
 
+# disabled for n5110 version as this is not working for this device atm.
 if [ "get_ums" == "$1" ]; then
 	#if [ "`busybox grep 179 /sys/devices/platform/s3c-usbgadget/gadget/lun0/file`" ]; then
 	#	echo "1"
 	#else
 	#	echo "0"
 	#fi
-	echo ""
+	#echo ""
 	exit 0
 fi
 
@@ -1117,19 +1115,19 @@ if [ "apply_ntfs" == "$1" ]; then
 	fi
 	exit 0
 fi
-
+# disabled for n5110 version as this is not working for this device atm.
 if [ "apply_ums" == "$1" ]; then
-	if [ "1" == "$2" ]; then
-		umount -l /mnt/extSdCard/
-		/system/bin/setprop persist.sys.usb.config mass_storage,adb
-		echo /dev/block/vold/179:49 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
-	fi
+	#if [ "1" == "$2" ]; then
+	#	umount -l /mnt/extSdCard/
+	#	/system/bin/setprop persist.sys.usb.config mass_storage,adb
+	#	echo /dev/block/vold/179:49 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
+	#fi
 
-	if [ "0" == "$2" ]; then
-		echo "" > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
-		/system/bin/vold
-		/system/bin/setprop persist.sys.usb.config mtp,adb
-	fi
+	#if [ "0" == "$2" ]; then
+	#	echo "" > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
+	#	/system/bin/vold
+	#	/system/bin/setprop persist.sys.usb.config mtp,adb
+	#fi
 	exit 0
 fi
 
@@ -1252,10 +1250,10 @@ if [ "action_debug_info_file" == "$1" ]; then
 	cat /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table >> $2
 
 	echo -e "\n**** GPU frequencies:\n" >> $2
-	cat /sys/class/misc/gpu_clock_control/gpu_control >> $2
+	cat /sys/class/misc/gpu_control/gpu_clock_control >> $2
 
 	echo -e "\n**** GPU undervolting:\n" >> $2
-	cat /sys/class/misc/gpu_voltage_control/gpu_control >> $2
+	cat /sys/class/misc/gpu_control/gpu_voltage_control >> $2
 
 	echo -e "\n**** ASV level:\n" >> $2
 	cat /sys/devices/system/cpu/cpu0/cpufreq/asv_level >> $2
@@ -1325,18 +1323,6 @@ if [ "action_debug_info_file" == "$1" ]; then
 
 	echo -e "\n**** Sharpness fix:\n" >> $2
 	cat /sys/class/misc/mdnie_preset/mdnie_preset >> $2
-
-	echo -e "\n**** LED fading:\n" >> $2
-	cat /sys/class/sec/led/led_fade >> $2
-
-	echo -e "\n**** LED intensity:\n" >> $2
-	cat /sys/class/sec/led/led_intensity >> $2
-
-	echo -e "\n**** LED speed:\n" >> $2
-	cat /sys/class/sec/led/led_speed >> $2
-
-	echo -e "\n**** LED slope:\n" >> $2
-	cat /sys/class/sec/led/led_slope >> $2
 
 	echo -e "\n**** zRam disk size:\n" >> $2
 	cat /sys/block/zram0/disksize >> $2

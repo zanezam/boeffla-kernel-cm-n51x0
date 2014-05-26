@@ -1,7 +1,7 @@
 #!/system/bin/sh
 #
-# Test for version N5110-2.2 alpha1
-# -> disabled charge rate functionality
+# n5110 version
+#
 
 # define basic kernel configuration
 # *********************************************************
@@ -158,9 +158,9 @@ FRANDOM_ENABLER="/data/.boeffla/enable-frandom"
 	echo 256 > /sys/block/mmcblk1/bdi/read_ahead_kb
 	echo $(date) "SDcard buffer tweaks (256 kb) applied for external sd memory" >> $BOEFFLA_LOGFILE
 
-	# AC charging rate defaults defaults to 1900 mA
-#	echo "1900" > /sys/kernel/charge_levels/charge_level_ac
-#	echo $(date) "AC charge rate set to 1900 mA" >> $BOEFFLA_LOGFILE
+	# AC charging rate defaults defaults to 1100 mA
+	echo "1100" > /sys/kernel/charge_levels/charge_level_ac
+	echo $(date) "AC charge rate set to 1100 mA" >> $BOEFFLA_LOGFILE
 
 # init.d support, only if enabled in settings or file in data folder
 # (zipalign scripts will not be executed as only exception)
@@ -203,11 +203,11 @@ FRANDOM_ENABLER="/data/.boeffla/enable-frandom"
 # Interaction with Boeffla-Config app V2
 	# save original stock values for selected parameters
 	cat /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table > /dev/bk_orig_cpu_voltage
-	cat /sys/class/misc/gpu_clock_control/gpu_control > /dev/bk_orig_gpu_clock
-	cat /sys/class/misc/gpu_voltage_control/gpu_control > /dev/bk_orig_gpu_voltage
-#	cat /sys/kernel/charge_levels/charge_level_ac > /dev/bk_orig_charge_level_ac
-#	cat /sys/kernel/charge_levels/charge_level_usb > /dev/bk_orig_charge_level_usb
-#	cat /sys/kernel/charge_levels/charge_level_wireless > /dev/bk_orig_charge_level_wireless
+	cat /sys/class/misc/gpu_control/gpu_clock_control > /dev/bk_orig_gpu_clock
+	cat /sys/class/misc/gpu_control/gpu_voltage_control > /dev/bk_orig_gpu_voltage
+	cat /sys/kernel/charge_levels/charge_level_ac > /dev/bk_orig_charge_level_ac
+	cat /sys/kernel/charge_levels/charge_level_usb > /dev/bk_orig_charge_level_usb
+	cat /sys/kernel/charge_levels/charge_level_wireless > /dev/bk_orig_charge_level_wireless
 	cat /sys/module/lowmemorykiller/parameters/minfree > /dev/bk_orig_minfree
 	/sbin/busybox lsmod > /dev/bk_orig_modules
 

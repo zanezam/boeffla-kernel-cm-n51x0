@@ -163,11 +163,13 @@ FRANDOM_ENABLER="/data/.boeffla/enable-frandom"
 #	echo $(date) "AC charge rate set to 1900 mA" >> $BOEFFLA_LOGFILE
 
 # init.d support, only if enabled in settings or file in data folder
+# (zipalign scripts will not be executed as only exception)
 	if [ "CM" != "$KERNEL" ] || [ -f $INITD_ENABLER ] ; then
 		echo $(date) Execute init.d scripts start >> $BOEFFLA_LOGFILE
 		if cd /system/etc/init.d >/dev/null 2>&1 ; then
 			for file in * ; do
 				if ! cat "$file" >/dev/null 2>&1 ; then continue ; fi
+				if [[ "$file" == *zipalign* ]]; then continue ; fi
 				echo $(date) init.d file $file started >> $BOEFFLA_LOGFILE
 				/system/bin/sh "$file"
 				echo $(date) init.d file $file executed >> $BOEFFLA_LOGFILE

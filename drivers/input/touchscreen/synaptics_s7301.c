@@ -1037,6 +1037,7 @@ static void synaptics_ts_resume_dwork(struct work_struct *work)
 	mutex_unlock(&data->mutex);
 }
 
+#if !defined(CONFIG_MACH_KONA)
 static void synaptics_ts_noti_dwork(struct work_struct *work)
 {
 	struct synaptics_drv_data *data =
@@ -1045,6 +1046,7 @@ static void synaptics_ts_noti_dwork(struct work_struct *work)
 
 	set_charger_connection_bit(data);
 }
+#endif
 
 #if defined(CONFIG_TOUCHSCREEN_SYNAPTICS_S7301_WORKAROUND)
 static void synaptics_reset_ts_dwork(struct work_struct *work)
@@ -1255,7 +1257,7 @@ static const struct i2c_device_id synaptics_ts_id[] = {
 	{}
 };
 
-static struct i2c_driver synaptics_ts_driver = {
+static struct i2c_driver synaptics_ts_driver __refdata = {
 	.driver = {
 		   .name = SYNAPTICS_TS_NAME,
 	},

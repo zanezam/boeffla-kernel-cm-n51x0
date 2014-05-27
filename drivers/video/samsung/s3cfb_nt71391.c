@@ -390,7 +390,7 @@ static void nt71391_shutdown(struct device *dev)
 	nt71391_power(lcd, FB_BLANK_POWERDOWN);
 }
 
-static struct mipi_lcd_driver nt71391_mipi_driver = {
+static struct mipi_lcd_driver nt71391_mipi_driver __refdata = {
 	.name	= "nt71391",
 	.probe		= nt71391_probe,
 	.remove		= __devexit_p(nt71391_remove),

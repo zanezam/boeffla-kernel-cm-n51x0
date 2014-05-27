@@ -213,7 +213,7 @@ static struct platform_device *kona_sensor_devices[] __initdata = {
 #endif
 };
 
-int kona_sensor_init(void)
+int __init kona_sensor_init(void)
 {
 	int ret = 0;
 

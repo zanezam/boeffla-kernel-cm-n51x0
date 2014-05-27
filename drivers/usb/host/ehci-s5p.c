@@ -576,7 +576,7 @@ static int s5p_ehci_irq_cpu = 0;
  */
 static int s5p_ehci_cpus[] = {0, 1, 1, 3};
 
-static int __cpuinit s5p_ehci_cpu_notify(struct notifier_block *self,
+static int s5p_ehci_cpu_notify(struct notifier_block *self,
 				unsigned long action, void *hcpu)
 {
 	int cpu = (unsigned long)hcpu;
@@ -603,7 +603,7 @@ exit:
 	return NOTIFY_OK;
 }
 
-static struct notifier_block __cpuinitdata s5p_ehci_cpu_notifier = {
+static struct notifier_block s5p_ehci_cpu_notifier = {
 	.notifier_call = s5p_ehci_cpu_notify,
 };
 #endif

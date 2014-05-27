@@ -140,7 +140,6 @@ static struct miscdevice touchboost_switch_control_device = {
 
 static int touchboost_switch_init(void)
 {
-	int ret;
 
 	// register touchboost switch device
 	misc_register(&touchboost_switch_control_device);

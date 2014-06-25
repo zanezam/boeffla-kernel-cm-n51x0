@@ -334,6 +334,8 @@ fi
 if [ "param_touchwake" == "$1" ]; then
 	# Touchwake min/max/steps
 	echo "0;600000;5000"
+	# Knockon min/max/steps
+	echo "100;2000;100"
 	exit 0
 fi
 

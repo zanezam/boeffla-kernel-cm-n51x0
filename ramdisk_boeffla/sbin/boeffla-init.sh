@@ -35,12 +35,17 @@ FRANDOM_ENABLER="/data/.boeffla/enable-frandom"
 
 
 # If not yet exists, create a boeffla-kernel-data folder on sdcard 
-# which is used for many purposes (set permissions and owners correctly)
+# which is used for many purposes,
+# always set permissions and owners correctly for pathes and files
 	if [ ! -d "$BOEFFLA_DATA_PATH" ] ; then
 		/sbin/busybox mkdir $BOEFFLA_DATA_PATH
-		/sbin/busybox chmod 775 $BOEFFLA_DATA_PATH
-		/sbin/busybox chown 1023:1023 $BOEFFLA_DATA_PATH
 	fi
+
+	/sbin/busybox chmod 775 $SD_PATH
+	/sbin/busybox chown 1023:1023 $SD_PATH
+
+	/sbin/busybox chmod -R 775 $BOEFFLA_DATA_PATH
+	/sbin/busybox chown -R 1023:1023 $BOEFFLA_DATA_PATH
 
 # maintain log file history
 	rm $BOEFFLA_LOGFILE.3

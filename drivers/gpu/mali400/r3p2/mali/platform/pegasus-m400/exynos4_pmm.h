@@ -134,7 +134,7 @@ extern unsigned int gpu_freq_table[GPU_FREQ_STEPS+1];
 extern int gpu_voltage_delta[MALI_DVFS_STEPS];
 extern void gpu_voltage_delta_reset(int step);
 
-#define MIN_VOLTAGE_GPU 600000
+#define MIN_VOLTAGE_GPU 500000
 #define MAX_VOLTAGE_GPU 1400000
 
 #ifdef __cplusplus

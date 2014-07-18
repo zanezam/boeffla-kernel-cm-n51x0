@@ -1249,81 +1249,21 @@ if [ "action_debug_info_file" == "$1" ]; then
 	echo -e "\n============================================\n" >> $2
 
 	echo -e "\n**** boeffla_sound\n" >> $2
-	cat /sys/class/misc/boeffla_sound/boeffla_sound >> $2
-
-	echo -e "\n**** headphone_volume\n" >> $2
-	cat /sys/class/misc/boeffla_sound/headphone_volume >> $2
-
-	echo -e "\n**** speaker_volume\n" >> $2
-	cat /sys/class/misc/boeffla_sound/speaker_volume >> $2
-
-	echo -e "\n**** speaker_tuning\n" >> $2
-	cat /sys/class/misc/boeffla_sound/speaker_tuning >> $2
-
-	echo -e "\n**** privacy_mode\n" >> $2
-	cat /sys/class/misc/boeffla_sound/privacy_mode >> $2
-
-	echo -e "\n**** equalizer\n" >> $2
-	cat /sys/class/misc/boeffla_sound/eq >> $2
-
-	echo -e "\n**** eq_gains\n" >> $2
-	cat /sys/class/misc/boeffla_sound/eq_gains >> $2
-
-	echo -e "\n**** eq_gains_alt\n" >> $2
-	cat /sys/class/misc/boeffla_sound/eq_gains_alt >> $2
-
-	echo -e "\n**** eq_bands\n" >> $2
-	cat /sys/class/misc/boeffla_sound/eq_bands >> $2
-
-	echo -e "\n**** dac_direct\n" >> $2
-	cat /sys/class/misc/boeffla_sound/dac_direct >> $2
-
-	echo -e "\n**** dac_oversampling\n" >> $2
-	cat /sys/class/misc/boeffla_sound/dac_oversampling >> $2
-
-	echo -e "\n**** fll_tuning\n" >> $2
-	cat /sys/class/misc/boeffla_sound/fll_tuning >> $2
-
-	echo -e "\n**** stereo_expansion\n" >> $2
-	cat /sys/class/misc/boeffla_sound/stereo_expansion >> $2
-
-	echo -e "\n**** mono_downmix\n" >> $2
-	cat /sys/class/misc/boeffla_sound/mono_downmix >> $2
-
-	echo -e "\n**** mic_level_general\n" >> $2
-	cat /sys/class/misc/boeffla_sound/mic_level_general >> $2
-
-	echo -e "\n**** mic_level_call\n" >> $2
-	cat /sys/class/misc/boeffla_sound/mic_level_call >> $2
-
-	echo -e "\n**** debug_level\n" >> $2
-	cat /sys/class/misc/boeffla_sound/debug_level >> $2
-
-	echo -e "\n**** debug_info\n" >> $2
-	cat /sys/class/misc/boeffla_sound/debug_info >> $2
-
-	echo -e "\n**** version\n" >> $2
-	cat /sys/class/misc/boeffla_sound/version >> $2
+	cd /sys/class/misc/boeffla_sound
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo "\n============================================\n" >> $2
 
 	echo -e "\n**** Loaded modules:\n" >> $2
 	lsmod >> $2
 
-	echo -e "\n**** Max CPU frequency:\n" >> $2
-	cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq >> $2
+	echo -e "\n**** CPU information:\n" >> $2
+	cd /sys/devices/system/cpu/cpu0/cpufreq
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
-	echo -e "\n**** CPU undervolting:\n" >> $2
-	cat /sys/devices/system/cpu/cpu0/cpufreq/UV_mV_table >> $2
-
-	echo -e "\n**** GPU frequencies:\n" >> $2
-	cat /sys/class/misc/gpu_control/gpu_clock_control >> $2
-
-	echo -e "\n**** GPU undervolting:\n" >> $2
-	cat /sys/class/misc/gpu_control/gpu_voltage_control >> $2
-
-	echo -e "\n**** ASV level:\n" >> $2
-	cat /sys/devices/system/cpu/cpu0/cpufreq/asv_level >> $2
+	echo -e "\n**** GPU information:\n" >> $2
+	cd /sys/class/misc/gpu_control
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo -e "\n**** Root:\n" >> $2
 	ls /system/xbin/su >> $2
@@ -1353,31 +1293,25 @@ if [ "action_debug_info_file" == "$1" ]; then
 	cat /dev/bk_system_tweaks >> $2
 	cat /dev/bk_swappiness_overwrite >> $2
 
-	echo -e "\n**** Touch boost switch:\n" >> $2
-	cat /sys/class/misc/touchboost_switch/touchboost_switch >> $2
-
-	echo -e "\n**** Touch boost frequency:\n" >> $2
-	cat /sys/class/misc/touchboost_switch/touchboost_freq >> $2
+	echo -e "\n**** Touch boost:\n" >> $2
+	cd /sys/class/misc/touchboost_switch
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo -e "\n**** Touch wake:\n" >> $2
-	cat /sys/class/misc/touchwake/enabled >> $2
-	cat /sys/class/misc/touchwake/delay >> $2
+	cd /sys/class/misc/touchwake
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo -e "\n**** Early suspend:\n" >> $2
 	cat /sys/kernel/early_suspend/early_suspend_delay >> $2
 
-	echo -e "\n**** Charging levels (ac/usb/wireless):\n" >> $2
-	cat /sys/kernel/charge_levels/charge_level_ac >> $2
-	cat /sys/kernel/charge_levels/charge_level_usb >> $2
-	cat /sys/kernel/charge_levels/charge_level_wireless >> $2
-
-	echo -e "\n**** Charging instable power / ignore safety margin:\n" >> $2
-	cat /sys/kernel/charge_levels/ignore_unstable_power >> $2
-	cat /sys/kernel/charge_levels/ignore_safety_margin >> $2
+	echo -e "\n**** Charging levels (ac/usb/wireless) and Charging instable power / ignore safety margin:\n" >> $2
+	cd /sys/kernel/charge_levels
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo -e "\n**** Governor:\n" >> $2
 	cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor >> $2
-
+	GOVERNOR=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
+	
 	echo -e "\n**** Scheduler:\n" >> $2
 	cat /sys/block/mmcblk0/queue/scheduler >> $2
 	cat /sys/block/mmcblk1/queue/scheduler >> $2
@@ -1391,23 +1325,8 @@ if [ "action_debug_info_file" == "$1" ]; then
 	echo -e "\n**** Sharpness fix:\n" >> $2
 	cat /sys/class/misc/mdnie_preset/mdnie_preset >> $2
 
-	echo -e "\n**** zRam disk size:\n" >> $2
-	cat /sys/block/zram0/disksize >> $2
-	cat /sys/block/zram1/disksize >> $2
-	cat /sys/block/zram2/disksize >> $2
-	cat /sys/block/zram3/disksize >> $2
-
-	echo -e "\n**** zRam compressed data size:\n" >> $2
-	cat /sys/block/zram0/compr_data_size >> $2
-	cat /sys/block/zram1/compr_data_size >> $2
-	cat /sys/block/zram2/compr_data_size >> $2
-	cat /sys/block/zram3/compr_data_size >> $2
-
-	echo -e "\n**** zRam original data size:\n" >> $2
-	cat /sys/block/zram0/orig_data_size >> $2
-	cat /sys/block/zram1/orig_data_size >> $2
-	cat /sys/block/zram2/orig_data_size >> $2
-	cat /sys/block/zram3/orig_data_size >> $2
+	echo -e "\n**** zRam information:\n" >> $2
+	busybox find /sys/block/zram*/* -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo -e "\n**** Uptime:\n" >> $2
 	cat /proc/uptime >> $2
@@ -1436,144 +1355,9 @@ if [ "action_debug_info_file" == "$1" ]; then
 	echo -e "\n**** Mounts:\n" >> $2
 	mount >> $2
 
-	echo -e "\n**** pegasusq tuneables\n" >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_rq_1_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_rq_2_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_3_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_rq_2_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_rq_3_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_3_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_4_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_rq_3_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_rq_4_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold >> $2
-	cat /sys/devices/system/cpu/cpufreq/pegasusq/freq_step >> $2
-
-	echo -e "\n**** zzmoove tuneables\n" >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/sampling_rate_sleep_multiplier >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_factor >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_max_momentum >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/sampling_down_momentum_sensitivity >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/smooth_up_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug2 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug3 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug2 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug3 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq2 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/up_threshold_hotplug_freq3 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq2 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/down_threshold_hotplug_freq3 >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_up_cycles >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_block_down_cycles >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_idle_threshold >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/hotplug_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/freq_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/freq_step_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/freq_limit_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/fast_scaling_sleep >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/early_demand >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/grad_up_threshold >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/ignore_nice_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_enable >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_cores >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_up_delay >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_down_delay >> $2
-	cat /sys/devices/system/cpu/cpufreq/zzmoove/lcdfreq_kick_in_freq >> $2
-
-	echo -e "\n**** lulzactiveq tuneables\n" >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/cpu_down_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/cpu_up_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/debug_mode >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/dec_cpu_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/down_sample_time >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/dvfs_debug >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/freq_table >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hispeed_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_freq_1_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_freq_2_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_freq_2_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_freq_3_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_freq_3_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_freq_4_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_lock >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_rq_1_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_rq_2_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_rq_2_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_rq_3_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_rq_3_1 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_rq_4_0 >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/hotplug_sampling_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/ignore_nice_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/inc_cpu_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/max_cpu_lock >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/min_cpu_lock >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/pump_down_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/pump_up_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/screen_off_min_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/up_nr_cpus >> $2
-	cat /sys/devices/system/cpu/cpufreq/lulzactiveq/up_sample_time >> $2
-
-	echo -e "\n**** ondemand tuneables\n" >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/down_differential >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/freq_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/ignore_nice_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/powersave_bias >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate_min >> $2
-	cat /sys/devices/system/cpu/cpufreq/ondemand/up_threshold >> $2
-
-	echo -e "\n**** smartassv2 tuneables\n" >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/awake_ideal_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/debug_mask >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/down_rate_us >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/max_cpu_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/min_cpu_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/ramp_down_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/ramp_up_step >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/sample_rate_jiffies >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/sleep_ideal_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/sleep_wakeup_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/smartassV2/up_rate_us >> $2
-
-	echo -e "\n**** intelliactive tuneables\n" >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/above_hispeed_delay >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/boost >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse_duration >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/go_hispeed_load >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/hispeed_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/io_is_busy >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/min_sample_time >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/sampling_down_factor >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/sync_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/target_loads >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/timer_rate >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/timer_slack >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/two_phase_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_freq >> $2
-	cat /sys/devices/system/cpu/cpufreq/intelliactive/up_threshold_any_cpu_load >> $2
+	echo -e "\n**** $GOVERNOR tuneables\n" >> $2
+	cd /sys/devices/system/cpu/cpufreq/$GOVERNOR
+	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo -e "\n============================================\n" >> $2
 

@@ -418,6 +418,8 @@ fi
 
 if [ "apply_governor_profile" == "$1" ]; then
 	if [ "pegasusq - standard" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		# cpu2
 		echo "500000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1
 		echo "200000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0
@@ -444,6 +446,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusq - boeffla 1 core" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		# cpu2
 		echo "1600000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1
 		echo "1500000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0
@@ -470,6 +474,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusq - boeffla 2 cores" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		# cpu2
 		echo "500000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1
 		echo "200000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0
@@ -496,6 +502,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusq - speedmod" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		# cpu2
 		echo "500000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1
 		echo "400000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0
@@ -522,6 +530,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusq - boeffla battery saving" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		# cpu2
 		echo "1600000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1
 		echo "1500000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0
@@ -548,6 +558,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusq - boeffla moderate" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		# cpu2
 		echo "800000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_1_1
 		echo "700000" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_freq_2_0
@@ -574,6 +586,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusqplus - standard" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "30" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_down_rate
 		echo "2" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_online_bias_count
 		echo "30" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_online_bias_down_threshold
@@ -618,6 +632,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusqplus - balanced" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "30" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_down_rate
 		echo "2" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_online_bias_count
 		echo "52" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_online_bias_down_threshold
@@ -662,6 +678,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "pegasusqplus - battery" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "30" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_down_rate
 		echo "2" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_online_bias_count
 		echo "52" > /sys/devices/system/cpu/cpufreq/pegasusqplus/cpu_online_bias_down_threshold
@@ -706,6 +724,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - standard" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -713,6 +733,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - battery" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -720,6 +742,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - optimal" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "6" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -727,6 +751,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - performance" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "8" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -734,6 +760,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - battery extreme yank" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "3" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -741,6 +769,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - battery yank" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "2" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -748,6 +778,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - insane" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "9" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -755,6 +787,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - battery plus" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -762,6 +796,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - moderate" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "7" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -769,6 +805,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "zzmoove - game" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "10" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
 
 		busybox sleep 0.5s
@@ -776,6 +814,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 	
 	if [ "lulzactiveq - standard" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "20" >/sys/devices/system/cpu/cpufreq/lulzactiveq/cpu_down_rate
 		echo "10" >/sys/devices/system/cpu/cpufreq/lulzactiveq/cpu_up_rate
 		echo "0" >/sys/devices/system/cpu/cpufreq/lulzactiveq/debug_mode
@@ -813,6 +853,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "ondemand - standard" == "$2" ]; then
+		# enable intelli plug for this governor
+		echo "1" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "3" >/sys/devices/system/cpu/cpufreq/ondemand/down_differential
 		echo "100" >/sys/devices/system/cpu/cpufreq/ondemand/freq_step
 		echo "0" >/sys/devices/system/cpu/cpufreq/ondemand/ignore_nice_load
@@ -828,6 +870,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "smartassV2 - standard" == "$2" ]; then
+		# enable intelli plug for this governor
+		echo "1" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "800000" > /sys/devices/system/cpu/cpufreq/smartassV2/awake_ideal_freq
 		echo "0" > /sys/devices/system/cpu/cpufreq/smartassV2/debug_mask
 		echo "99000" > /sys/devices/system/cpu/cpufreq/smartassV2/down_rate_us
@@ -845,6 +889,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 	
 	if [ "intelliactive - standard" == "$2" ]; then
+		# disable intelli plug for this governor
+		echo "0" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "20000" > /sys/devices/system/cpu/cpufreq/intelliactive/above_hispeed_delay 
 		echo "0" > /sys/devices/system/cpu/cpufreq/intelliactive/boost
 		echo "" > /sys/devices/system/cpu/cpufreq/intelliactive/boostpulse
@@ -867,6 +913,8 @@ if [ "apply_governor_profile" == "$1" ]; then
 	fi
 
 	if [ "wheatley - standard" == "$2" ]; then
+		# enable intelli plug for this governor
+		echo "1" > /sys/module/intelli_plug/parameters/intelli_plug_active
 		echo "5" > /sys/devices/system/cpu/cpufreq/wheatley/allowed_misses
 		echo "0" > /sys/devices/system/cpu/cpufreq/wheatley/ignore_nice_load
 		echo "0" > /sys/devices/system/cpu/cpufreq/wheatley/io_is_busy
@@ -881,6 +929,22 @@ if [ "apply_governor_profile" == "$1" ]; then
 		busybox sync
 	fi
 
+	if [ "performance - standard" == "$2" ]; then
+		# enable intelli plug for this governor
+		echo "1" > /sys/module/intelli_plug/parameters/intelli_plug_active
+
+		busybox sleep 0.5s
+		busybox sync
+	fi
+
+	if [ "userspace - standard" == "$2" ]; then
+		# enable intelli plug for this governor
+		echo "1" > /sys/module/intelli_plug/parameters/intelli_plug_active
+
+		busybox sleep 0.5s
+		busybox sync
+	fi
+	
 	exit 0
 fi
 

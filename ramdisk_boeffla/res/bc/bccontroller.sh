@@ -9,7 +9,7 @@
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5110;samsung;jb44;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
+KERNEL_SPECS="n5110;samsung;kk44;http://boeffla.df-kunde.de/n5110/boeffla-kernel/"
 
 # kernel features 
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)

@@ -1156,17 +1156,16 @@ fi
 
 if [ "apply_usb_ethernet" == "$1" ]; then
 	if [ "1" == "$2" ]; then
-		insmod $LIBPATH/mii.ko
-		insmod $LIBPATH/usbnet.ko
 		insmod $LIBPATH/asix.ko
 		netcfg eth0 up
-		netcfg eth0 dhcp &
+		dhcpcd eth0
+		DNS=`getprop net.eth0.dns1`
+		ndc resolver setifdns eth0 "" $DNS  8.8.8.8
+		ndc resolver setdefaultif eth0
 	fi
 
 	if [ "0" == "$2" ]; then
 		rmmod $LIBPATH/asix.ko
-		rmmod $LIBPATH/usbnet.ko
-		rmmod $LIBPATH/mii.ko
 		netcfg eth0 down
 	fi
 	exit 0

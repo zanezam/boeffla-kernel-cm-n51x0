@@ -21,7 +21,7 @@ extern int ignore_safety_margin;
 
 #define AC_CHARGE_LEVEL_DEFAULT 1000
 #define AC_CHARGE_LEVEL_MIN 100
-#define AC_CHARGE_LEVEL_MAX 1600
+#define AC_CHARGE_LEVEL_MAX 1800
 
 #define USB_CHARGE_LEVEL_DEFAULT 475
 #define USB_CHARGE_LEVEL_MIN 0

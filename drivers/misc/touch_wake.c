@@ -225,6 +225,9 @@ static ssize_t touchwake_charger_mode_write(struct device * dev, struct device_a
 
 	ret = sscanf(buf, "%d", &val);
 
+    if (ret != 1)
+        return -EINVAL;
+
 	if (val == 0)
 		charger_mode = false;
 	else if (val == 1)
@@ -285,6 +288,9 @@ static ssize_t touchwake_knockon_write(struct device * dev, struct device_attrib
 
 	// read value from input buffer
 	ret = sscanf(buf, "%d", &val);
+
+    if (ret != 1)
+        return -EINVAL;
 
 	// check value and store if valid
 	if ((val == 0) ||  (val == 1))

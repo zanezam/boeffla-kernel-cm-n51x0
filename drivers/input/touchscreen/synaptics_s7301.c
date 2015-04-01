@@ -920,52 +920,53 @@ static struct synaptics_drv_data * touchwake_data;
 
 void touchscreen_disable(void)
 {
-  if (likely(touchwake_data != NULL)) {
+	if (likely(touchwake_data != NULL)) {
 #if defined(CONFIG_MACH_KONA)
-	disable_irq(touchwake_data->client->irq);
-	forced_release_fingers(touchwake_data);
-	if (!wake_lock_active(&touchwake_data->wakelock)) {
-		touchwake_data->pdata->set_power(0);
-	}
-#else
-	printk(KERN_DEBUG "[TSP] %s\n", __func__);
-	cancel_delayed_work_sync(&_touchwake_data->resume_dwork);
-	mutex_lock(&touchwake_data->mutex);
-	if (!touchwake_data->suspend) {
 		disable_irq(touchwake_data->client->irq);
 		forced_release_fingers(touchwake_data);
 		if (!wake_lock_active(&touchwake_data->wakelock)) {
 			touchwake_data->pdata->set_power(0);
-			touchwake_data->suspend = true;
+		}	
+#else
+		printk(KERN_DEBUG "[TSP] %s\n", __func__);
+		cancel_delayed_work_sync(&_touchwake_data->resume_dwork);
+		mutex_lock(&touchwake_data->mutex);
+		if (!touchwake_data->suspend) {
+			disable_irq(touchwake_data->client->irq);
+			forced_release_fingers(touchwake_data);
+			if (!wake_lock_active(&touchwake_data->wakelock)) {
+				touchwake_data->pdata->set_power(0);
+				touchwake_data->suspend = true;
+			}
 		}
-	}
-	mutex_unlock(&touchwake_data->mutex);
+		mutex_unlock(&touchwake_data->mutex);
 #endif
-    }
-    return;
+	}
+	return;
 }
 EXPORT_SYMBOL(touchscreen_disable);
 
 void touchscreen_enable(void)
 {
-  if (likely(touchwake_data != NULL))
-	printk(KERN_DEBUG "[TSP] %s\n", __func__);
+	if (likely(touchwake_data != NULL)) {
+		printk(KERN_DEBUG "[TSP] %s\n", __func__);
 
 #if defined(CONFIG_MACH_KONA)
-	/* turned on tsp power */
-	touchwake_data->pdata->set_power(1);
+		/* turned on tsp power */
+		touchwake_data->pdata->set_power(1);
 
-	mdelay(200);
-	enable_irq(touchwake_data->client->irq);
+		mdelay(200);
+		enable_irq(touchwake_data->client->irq);
 #else
-	if (touchwake_data->suspend) {
-		if (touchwake_data->pdata->set_power(1))
-			touchwake_data->pdata->hw_reset();
-	}
+		if (touchwake_data->suspend) {
+			if (touchwake_data->pdata->set_power(1))
+				touchwake_data->pdata->hw_reset();
+		}
 
-	schedule_delayed_work(&touchwake_data->resume_dwork, HZ / 10);
+		schedule_delayed_work(&touchwake_data->resume_dwork, HZ / 10);
 #endif
-    return;
+	}
+	return;
 }
 EXPORT_SYMBOL(touchscreen_enable);
 #endif
@@ -992,9 +993,9 @@ static void init_function_data_dwork(struct work_struct *work)
 #endif
 
 #if defined(CONFIG_TOUCH_WAKE)
-  touchwake_data = data;
-    if (touchwake_data == NULL)
-    pr_err("[TOUCHWAKE] Failed to set touchwake_data\n");
+	touchwake_data = data;
+	if (touchwake_data == NULL)
+		pr_err("[TOUCHWAKE] Failed to set touchwake_data\n");
 #endif
 
 #if defined(CONFIG_SEC_TOUCHSCREEN_DVFS_LOCK)

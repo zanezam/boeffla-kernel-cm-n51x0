@@ -366,9 +366,6 @@ static void free_css_set_work(struct work_struct *work)
 		struct cgroup *cgrp = link->cgrp;
 		list_del(&link->cg_link_list);
 		list_del(&link->cgrp_link_list);
-<<<<<<< HEAD
-		if (atomic_dec_and_test(&cgrp->count)) {
-=======
 
 		/*
 		 * We may not be holding cgroup_mutex, and if cgrp->count is
@@ -378,17 +375,10 @@ static void free_css_set_work(struct work_struct *work)
 		rcu_read_lock();
 		if (atomic_dec_and_test(&cgrp->count) &&
 		    notify_on_release(cgrp)) {
-			if (taskexit)
-				set_bit(CGRP_RELEASABLE, &cgrp->flags);
->>>>>>> v3.0.101
 			check_for_release(cgrp);
 			cgroup_wakeup_rmdir_waiter(cgrp);
 		}
-<<<<<<< HEAD
-=======
 		rcu_read_unlock();
-
->>>>>>> v3.0.101
 		kfree(link);
 	}
 	write_unlock(&css_set_lock);

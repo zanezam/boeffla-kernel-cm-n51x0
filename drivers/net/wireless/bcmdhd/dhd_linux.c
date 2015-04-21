@@ -731,15 +731,6 @@ void dhd_enable_packet_filter(int value, dhd_pub_t *dhd)
 	    (dhd_support_sta_mode(dhd) && !dhd->dhcp_in_progress)))
 	    {
 		for (i = 0; i < dhd->pktfilter_count; i++) {
-#ifdef PASS_ARP_PACKET
-			if (value && (i == dhd->pktfilter_count -1) &&
-				!(dhd->op_mode & (DHD_FLAG_P2P_GC_MODE | DHD_FLAG_P2P_GO_MODE))) {
-				DHD_TRACE_HW4(("Do not turn on ARP white list pkt filter:"
-					"val %d, cnt %d, op_mode 0x%x\n",
-					value, i, dhd->op_mode));
-				continue;
-			}
-#endif
 			dhd_pktfilter_offload_enable(dhd, dhd->pktfilter[i],
 				value, dhd_master_mode);
 		}
@@ -4430,21 +4421,11 @@ dhd_preinit_ioctls(dhd_pub_t *dhd)
 
 #ifdef PKT_FILTER_SUPPORT
 	/* Setup default defintions for pktfilter , enable in suspend */
-	dhd->pktfilter_count = 5;
+	dhd->pktfilter_count = 1;
 	dhd->pktfilter[1] = NULL;
 	dhd->pktfilter[2] = NULL;
 	dhd->pktfilter[3] = NULL;
-	/* Add filter to pass multicastDNS packet and NOT filter out as Broadcast */
-	dhd->pktfilter[4] = "104 0 0 0 0xFFFFFFFFFFFF 0x01005E0000FB";
 
-#if defined(CUSTOMER_HW4) && defined(GAN_LITE_NAT_KEEPALIVE_FILTER)
-	dhd->pktfilter_count = 4;
-	/* Setup filter to block broadcast and NAT Keepalive packets */
-	dhd->pktfilter[0] = "100 0 0 0 0xffffff 0xffffff"; /* discard all broadcast packets */
-	dhd->pktfilter[1] = "102 0 0 36 0xffffffff 0x11940009"; /* discard NAT Keepalive packets */
-	dhd->pktfilter[2] = "104 0 0 38 0xffffffff 0x11940009"; /* discard NAT Keepalive packets */
-	dhd->pktfilter[3] = NULL;
-#else
 	/* Setup filter to allow only unicast */
 #if defined(BLOCK_IPV6_PACKET) && defined(CUSTOMER_HW4)
 	dhd->pktfilter[0] = "100 0 0 0 "
@@ -4458,7 +4439,6 @@ dhd_preinit_ioctls(dhd_pub_t *dhd)
 	dhd->pktfilter_count = 5;
 	dhd->pktfilter[4] = "104 0 0 0 0xFFFFFF 0x01005E";
 #endif /* PASS_IPV4_SUSPEND && CUSTOMER_HW4 */
-#endif /* GAN_LITE_NAT_KEEPALIVE_FILTER  && CUSTOMER_HW4 */
 
 #if defined(SOFTAP)
 	if (ap_fw_loaded) {

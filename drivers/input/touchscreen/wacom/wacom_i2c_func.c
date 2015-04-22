@@ -19,6 +19,7 @@
 
 #include <linux/wacom_i2c.h>
 #include "wacom_i2c_flash.h"
+#include <linux/touchboost_switch.h>
 
 #ifdef WACOM_IMPORT_FW_ALGO
 #include "wacom_i2c_coord_table.h"
@@ -52,7 +53,7 @@ void free_dvfs_lock(struct work_struct *work)
 
 static void set_dvfs_lock(struct wacom_i2c *wac_i2c, bool on)
 {
-	if (on) {
+	if (on && (tb_switch == TOUCHBOOST_ON)) {
 		if (!wac_i2c->dvfs_lock_status) {
 			cancel_delayed_work(&wac_i2c->dvfs_work);
 			dev_lock(wac_i2c->bus_dev,
@@ -83,7 +84,7 @@ void free_dvfs_lock(struct work_struct *work)
 
 static void set_dvfs_lock(struct wacom_i2c *wac_i2c, bool on)
 {
-	if (on) {
+	if (on && (tb_switch == TOUCHBOOST_ON)) {
 		cancel_delayed_work(&wac_i2c->dvfs_work);
 		if (!wac_i2c->dvfs_lock_status) {
 			exynos_cpufreq_lock(DVFS_LOCK_ID_PEN,

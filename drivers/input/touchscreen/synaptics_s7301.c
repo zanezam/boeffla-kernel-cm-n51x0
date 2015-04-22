@@ -14,6 +14,7 @@
  */
 
 #include <linux/synaptics_s7301.h>
+#include <linux/touchboost_switch.h>
 
 #define REPORT_MT_NOZ(x, y, w_max, w_min) \
 do {     \
@@ -168,11 +169,10 @@ static void free_dvfs_lock(struct work_struct *work)
 }
 void set_dvfs_lock(struct synaptics_drv_data *data, bool en)
 {
-	if (0 == data->cpufreq_level)
-		exynos_cpufreq_get_level(SEC_DVFS_LOCK_FREQ,
+		exynos_cpufreq_get_level(tb_freq,
 			&data->cpufreq_level);
 
-	if (en) {
+	if (en && (tb_switch == TOUCHBOOST_ON)) {
 		if (!data->dvfs_lock_status) {
 			cancel_delayed_work(&data->dvfs_dwork);
 			dev_lock(data->bus_dev,
@@ -914,7 +914,7 @@ static void init_function_data_dwork(struct work_struct *work)
 		free_dvfs_lock);
 	data->bus_dev = dev_get("exynos-busfreq");
 	data->dvfs_lock_status = false;
-	ret = exynos_cpufreq_get_level(SEC_DVFS_LOCK_FREQ,
+	ret = exynos_cpufreq_get_level(tb_switch,
 		&data->cpufreq_level);
 	if (ret < 0)
 		data->cpufreq_level = 0;

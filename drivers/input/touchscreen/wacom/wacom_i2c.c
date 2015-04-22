@@ -25,6 +25,7 @@
 #include <linux/uaccess.h>
 #include <linux/firmware.h>
 #include "wacom_i2c_func.h"
+#include <linux/touchboost_switch.h>
 #ifdef CONFIG_EPEN_WACOM_G9PL
 #include "w9002_flash.h"
 #else
@@ -1490,7 +1491,7 @@ static int wacom_i2c_probe(struct i2c_client *client,
 
 #ifdef CONFIG_SEC_TOUCHSCREEN_DVFS_LOCK
 	INIT_DELAYED_WORK(&wac_i2c->dvfs_work, free_dvfs_lock);
-	if (exynos_cpufreq_get_level(WACOM_DVFS_LOCK_FREQ,
+	if (exynos_cpufreq_get_level(tb_freq,
 			&wac_i2c->cpufreq_level))
 		printk(KERN_ERR "[E-PEN] exynos_cpufreq_get_level Error\n");
 #ifdef SEC_BUS_LOCK

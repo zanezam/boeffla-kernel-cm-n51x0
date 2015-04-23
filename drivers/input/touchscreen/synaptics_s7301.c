@@ -15,6 +15,9 @@
 
 #include <linux/synaptics_s7301.h>
 #include <linux/touchboost_switch.h>
+#ifdef CONFIG_TOUCH_WAKE
+#include <linux/touch_wake.h>
+#endif
 
 #define REPORT_MT_NOZ(x, y, w_max, w_min) \
 do {     \
@@ -817,6 +820,9 @@ static void synaptics_ts_read_points(struct synaptics_drv_data *data,
 		default:
 			break;
 		}
+#if defined(CONFIG_TOUCH_WAKE)
+touch_press();
+#endif
 	}
 	input_sync(data->input);
 	set_dvfs_lock(data, finger_pressed);
@@ -840,6 +846,7 @@ static irqreturn_t synaptics_ts_irq_handler(int irq, void *_data)
 #if defined(CONFIG_HAS_EARLYSUSPEND)
 static void synaptics_ts_early_suspend(struct early_suspend *h)
 {
+#if !defined(CONFIG_TOUCH_WAKE)
 	struct synaptics_drv_data *data =
 		container_of(h, struct synaptics_drv_data, early_suspend);
 #if defined(CONFIG_MACH_KONA)
@@ -862,10 +869,12 @@ static void synaptics_ts_early_suspend(struct early_suspend *h)
 	}
 	mutex_unlock(&data->mutex);
 #endif
+#endif
 }
 
 static void synaptics_ts_late_resume(struct early_suspend *h)
 {
+#if !defined(CONFIG_TOUCH_WAKE)
 	struct synaptics_drv_data *data =
 		container_of(h, struct synaptics_drv_data, early_suspend);
 
@@ -885,7 +894,63 @@ static void synaptics_ts_late_resume(struct early_suspend *h)
 
 	schedule_delayed_work(&data->resume_dwork, HZ / 10);
 #endif
+#endif
 }
+#endif
+
+#if defined(CONFIG_TOUCH_WAKE)
+static struct synaptics_drv_data * touchwake_data;
+
+void touchscreen_disable(void)
+{
+  if (likely(touchwake_data != NULL)) {
+#if defined(CONFIG_MACH_KONA)
+	disable_irq(touchwake_data->client->irq);
+	forced_release_fingers(touchwake_data);
+	if (!wake_lock_active(&touchwake_data->wakelock)) {
+		touchwake_data->pdata->set_power(0);
+	}
+#else
+	printk(KERN_DEBUG "[TSP] %s\n", __func__);
+	cancel_delayed_work_sync(&_touchwake_data->resume_dwork);
+	mutex_lock(&touchwake_data->mutex);
+	if (!touchwake_data->suspend) {
+		disable_irq(touchwake_data->client->irq);
+		forced_release_fingers(touchwake_data);
+		if (!wake_lock_active(&touchwake_data->wakelock)) {
+			touchwake_data->pdata->set_power(0);
+			touchwake_data->suspend = true;
+		}
+	}
+	mutex_unlock(&touchwake_data->mutex);
+#endif
+    }
+    return;
+}
+EXPORT_SYMBOL(touchscreen_disable);
+
+void touchscreen_enable(void)
+{
+  if (likely(touchwake_data != NULL))
+	printk(KERN_DEBUG "[TSP] %s\n", __func__);
+
+#if defined(CONFIG_MACH_KONA)
+	/* turned on tsp power */
+	touchwake_data->pdata->set_power(1);
+
+	mdelay(200);
+	enable_irq(touchwake_data->client->irq);
+#else
+	if (touchwake_data->suspend) {
+		if (touchwake_data->pdata->set_power(1))
+			touchwake_data->pdata->hw_reset();
+	}
+
+	schedule_delayed_work(&touchwake_data->resume_dwork, HZ / 10);
+#endif
+    return;
+}
+EXPORT_SYMBOL(touchscreen_enable);
 #endif
 
 static void init_function_data_dwork(struct work_struct *work)
@@ -907,6 +972,12 @@ static void init_function_data_dwork(struct work_struct *work)
 	data->early_suspend.suspend = synaptics_ts_early_suspend;
 	data->early_suspend.resume = synaptics_ts_late_resume;
 	register_early_suspend(&data->early_suspend);
+#endif
+
+#if defined(CONFIG_TOUCH_WAKE)
+  touchwake_data = data;
+    if (touchwake_data == NULL)
+    pr_err("[TOUCHWAKE] Failed to set touchwake_data\n");
 #endif
 
 #if defined(CONFIG_SEC_TOUCHSCREEN_DVFS_LOCK)

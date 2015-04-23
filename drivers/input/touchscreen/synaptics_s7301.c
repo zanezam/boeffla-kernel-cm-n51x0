@@ -50,6 +50,10 @@ do {		\
 
 #define CHECK_PAGE(addr)	((addr >> 8) & 0xff)
 
+#if defined(CONFIG_TOUCH_WAKE)
+static bool suspend_flag = false;
+#endif
+
 static int synaptics_ts_set_page(struct synaptics_drv_data *data,
 	u16 addr)
 {
@@ -583,6 +587,9 @@ static void synaptics_ts_read_points(struct synaptics_drv_data *data,
 {
 	struct finger_data buf;
 	bool finger_pressed = false;
+#if defined(CONFIG_TOUCH_WAKE)
+	bool touch_released = false;
+#endif
 	int ret = 0;
 	int id = 0;
 #if defined(CONFIG_SEC_TOUCHSCREEN_SURFACE_TOUCH)
@@ -815,15 +822,19 @@ static void synaptics_ts_read_points(struct synaptics_drv_data *data,
 			break;
 
 		case MT_STATUS_RELEASE:
+#if defined(CONFIG_TOUCH_WAKE)
+			touch_released = true;
+#endif
 			data->finger[id].status = MT_STATUS_INACTIVE;
 			break;
 		default:
 			break;
 		}
-#if defined(CONFIG_TOUCH_WAKE)
-touch_press();
-#endif
 	}
+#if defined(CONFIG_TOUCH_WAKE)
+		if (suspend_flag && touch_released == true)
+			touch_press();
+#endif
 	input_sync(data->input);
 	set_dvfs_lock(data, finger_pressed);
 }
@@ -846,6 +857,9 @@ static irqreturn_t synaptics_ts_irq_handler(int irq, void *_data)
 #if defined(CONFIG_HAS_EARLYSUSPEND)
 static void synaptics_ts_early_suspend(struct early_suspend *h)
 {
+#if defined(CONFIG_TOUCH_WAKE)
+  suspend_flag = true;
+#endif
 #if !defined(CONFIG_TOUCH_WAKE)
 	struct synaptics_drv_data *data =
 		container_of(h, struct synaptics_drv_data, early_suspend);
@@ -874,6 +888,9 @@ static void synaptics_ts_early_suspend(struct early_suspend *h)
 
 static void synaptics_ts_late_resume(struct early_suspend *h)
 {
+#if defined(CONFIG_TOUCH_WAKE)
+  suspend_flag = false;
+#endif
 #if !defined(CONFIG_TOUCH_WAKE)
 	struct synaptics_drv_data *data =
 		container_of(h, struct synaptics_drv_data, early_suspend);

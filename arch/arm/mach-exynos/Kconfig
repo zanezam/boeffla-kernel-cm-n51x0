@@ -1855,6 +1855,12 @@ config MACH_KONA_SENSOR
           YAS532 / YAMAHA
           GP2A030A / SHARP
 
+config INTELLI_PLUG
+	bool "Enable intelli-plug cpu hotplug driver"
+	default n
+	help
+	  Generic Intelli-plug cpu hotplug driver for ARM SOCs
+
 config CHARGE_LEVEL
 	bool "Charge level interface"
 	default y

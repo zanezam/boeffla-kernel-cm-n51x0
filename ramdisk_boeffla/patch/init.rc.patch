@@ -1,0 +1,49 @@
+From 2de24faefbccf043b3a50e15c7234b886f5f1098 Mon Sep 17 00:00:00 2001
+From: ZaneZam <cyxman@yahoo.com>
+Date: Tue, 21 Apr 2015 23:20:50 +0200
+Subject: [PATCH] init.rc patch
+
+---
+ init.rc | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/init.rc b/init.rc
+index 32d33d8..3c607cd 100755
+--- a/init.rc
++++ b/init.rc
+@@ -73,6 +73,9 @@ on init
+     mkdir /mnt/media_rw 0700 media_rw media_rw
+     mkdir /storage 0751 root sdcard_r
+ 
++    # Create mountpoint so Dalvik can mark as slave in zygotes.
++    mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
++
+     # Directory for putting things only root should see.
+     mkdir /mnt/secure 0700 root root
+ 
+@@ -349,9 +352,9 @@ on boot
+     write /proc/sys/vm/overcommit_memory 1
+     write /proc/sys/vm/min_free_order_shift 4
+     chown root system /sys/module/lowmemorykiller/parameters/adj
+-    chmod 0220 /sys/module/lowmemorykiller/parameters/adj
++    chmod 0660 /sys/module/lowmemorykiller/parameters/adj
+     chown root system /sys/module/lowmemorykiller/parameters/minfree
+-    chmod 0220 /sys/module/lowmemorykiller/parameters/minfree
++    chmod 0660 /sys/module/lowmemorykiller/parameters/minfree
+ 
+     # Tweak background writeout
+     write /proc/sys/vm/dirty_expire_centisecs 200
+@@ -655,3 +658,10 @@ service pre-recovery /system/bin/uncrypt
+     class main
+     disabled
+     oneshot
++
++# Call Boeffla-Kernel init script
++service boeffla-init /sbin/boeffla-init-starter.sh
++    class main
++    user root
++    group root
++    oneshot
+-- 
+2.1.4
+

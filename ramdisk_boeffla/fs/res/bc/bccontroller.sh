@@ -1,24 +1,30 @@
 # Boeffla-Config controller interface
 #
-# Version: n5110 by ZaneZam (no UMS and notification led functionality, 19 CPU freq/voltages, 5 GPU freq/voltages, touch to wake support active)
+# **********************************************
+# Kona (n5110) CyanogenMod 12 Version by ZaneZam
 #
-# (C) andip71
+# - 19 CPU freq/voltages
+# - 5 GPU freq/voltages
+# - touch to wake support active
+# - no UMS and no notification led functionality
+#
+# V0.2
+# **********************************************
 
 # ********************************
 # Kernel specific initialisation
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5110;samsung;kk44;http://boeffla.df-kunde.de/zanezam/n5110/boeffla-kernel/"
+KERNEL_SPECS="n5110;cm;cm12.0;http://boeffla.df-kunde.de/zanezam/n5110/boeffla-kernel/"
 
-# kernel features 
+# kernel features
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)
-# (5=enable-default-zram-control)
-KERNEL_FEATURES="-1-2-3-"
+# (5=enable-default-zram-control,6=enable-selinux-switch, 7=enable-selinux-control)
+KERNEL_FEATURES="-3-6-7-"
 
 # path to kernel libraries
-LIBPATH="/lib/modules"				# Samsung
-#LIBPATH="/system/lib/modules"		# Cyanogenmod+Omni
+LIBPATH="/system/lib/modules"
 
 # block devices
 SYSTEM_DEVICE="/dev/block/mmcblk0p9"
@@ -59,7 +65,7 @@ if [ "lov_gpu_freq" == "$1" ]; then
 fi
 
 if [ "lov_eq_gain_profiles" == "$1" ]; then
-	echo "Archis audiophile;Baseland;Bass extreme;Bass treble;Classic;Dance;Eargasm;Metal/Rock;Pleasant;Treble"
+	echo "Flat;Archis audiophile;Baseland;Bass extreme;Bass treble;Classic;Dance;Eargasm;Googy;Metal/Rock;Pleasant;Treble"
 	exit 0
 fi
 
@@ -257,6 +263,9 @@ if [ "conf_cpu_volt" == "$1" ]; then
 fi
 
 if [ "conf_eq_gains" == "$1" ]; then
+	if [ "Flat" ==  "$2" ]; then
+		echo "0;0;0;0;0"
+	fi
 	if [ "Archis audiophile" ==  "$2" ]; then
 		echo "8;4;4;2;6"
 	fi
@@ -286,6 +295,9 @@ if [ "conf_eq_gains" == "$1" ]; then
 	fi
 	if [ "Metal/Rock" ==  "$2" ]; then
 		echo "4;3;0;-4;3"
+	fi
+	if [ "Googy" ==  "$2" ]; then
+		echo "10;2;-1;2;10"
 	fi
 	exit 0
 fi
@@ -372,14 +384,12 @@ fi
 # Get settings
 # *******************
 
-# disabled for n5110 version as this is not working for this device atm.
 if [ "get_ums" == "$1" ]; then
 	#if [ "`busybox grep 179 /sys/devices/platform/s3c-usbgadget/gadget/lun0/file`" ]; then
 	#	echo "1"
 	#else
 	#	echo "0"
 	#fi
-	#echo ""
 	exit 0
 fi
 
@@ -948,6 +958,25 @@ if [ "apply_governor_profile" == "$1" ]; then
 	exit 0
 fi
 
+if [ "apply_survival_script" == "$1" ]; then
+	if [ "1" == "$2" ]; then
+		mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+		busybox mkdir -p /system/addon.d
+		busybox cp /res/misc/97-boeffla-kernel.sh /system/addon.d
+		busybox chmod 755 /system/addon.d/97-boeffla-kernel.sh
+		busybox sync
+		mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+	fi
+
+	if [ "0" == "$2" ]; then
+		mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+		busybox rm /system/addon.d/97-boeffla-kernel.sh
+		busybox sync
+		mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+	fi
+	exit 0
+fi
+
 if [ "apply_system_tweaks" == "$1" ]; then
 
 	if [ "Off" == "$2" ]; then
@@ -1181,22 +1210,24 @@ if [ "apply_ntfs" == "$1" ]; then
 	fi
 	exit 0
 fi
-# disabled for n5110 version as this is not working for this device atm.
+
 if [ "apply_ums" == "$1" ]; then
 	#if [ "1" == "$2" ]; then
-	#	umount -l /mnt/extSdCard/
+	#	busybox umount -l /mnt/extSdCard
+	#	busybox umount -l /storage/sdcard1
+	#	busybox umount -l /mnt/media_rw/sdcard1
+	#	busybox umount -l /mnt/secure/asec
 	#	/system/bin/setprop persist.sys.usb.config mass_storage,adb
-	#	echo /dev/block/vold/179:49 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
+	#	echo /dev/block/vold/179:17 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
 	#fi
 
 	#if [ "0" == "$2" ]; then
 	#	echo "" > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
 	#	/system/bin/vold
 	#	/system/bin/setprop persist.sys.usb.config mtp,adb
-	#fi
+	#fi	
 	exit 0
 fi
-
 
 # *******************
 # Actions
@@ -1252,6 +1283,9 @@ if [ "action_debug_info_file" == "$1" ]; then
 	busybox find * -print -maxdepth 0 -type f -exec tail -v -n +1 {} + >> $2
 
 	echo "\n============================================\n" >> $2
+
+	echo -e "\n**** SELinux:\n" >> $2
+	getenforce >> $2
 
 	echo -e "\n**** Loaded modules:\n" >> $2
 	lsmod >> $2
@@ -1395,6 +1429,7 @@ if [ "action_debug_info_file" == "$1" ]; then
 fi
 
 if [ "action_reboot" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox sync
 	busybox sleep 1s
 	/system/bin/reboot
@@ -1402,6 +1437,7 @@ if [ "action_reboot" == "$1" ]; then
 fi
 
 if [ "action_reboot_cwm" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox sync
 	busybox sleep 1s
 	/system/bin/reboot recovery
@@ -1409,6 +1445,7 @@ if [ "action_reboot_cwm" == "$1" ]; then
 fi
 
 if [ "action_reboot_download" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox sync
 	busybox sleep 1s
 	/system/bin/reboot download
@@ -1416,6 +1453,7 @@ if [ "action_reboot_download" == "$1" ]; then
 fi
 
 if [ "action_wipe_caches_reboot" == "$1" ]; then
+	echo 0 > /sys/kernel/dyn_fsync/Dyn_fsync_active
 	busybox rm -rf /cache/*
 	busybox rm -rf /data/dalvik-cache/*
 	busybox sync
@@ -1441,6 +1479,7 @@ if [ "action_clean_initd" == "$1" ]; then
 	busybox tar cvz -f $2 /system/etc/init.d
 	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 	busybox rm /system/etc/init.d/*
+	busybox sync
 	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	exit 0
 fi
@@ -1467,20 +1506,20 @@ fi
 
 if [ "action_fstrim" == "$1" ]; then
 	echo -e "Trim /data"
-	/res/bc/fstrim -v /data
+	fstrim -v /data
 	echo -e ""
 	echo -e "Trim /cache"
-	/res/bc/fstrim -v /cache
+	fstrim -v /cache
 	echo -e ""
 	echo -e "Trim /system"
-	/res/bc/fstrim -v /system
+	fstrim -v /system
 	echo -e ""
 	busybox sync
 	exit 0
 fi
 
-
 if [ "flash_kernel" == "$1" ]; then
+	setenforce 0
 	busybox dd if=$2 of=$BOOT_DEVICE
 	exit 0
 fi
@@ -1495,6 +1534,7 @@ if [ "archive_kernel" == "$1" ]; then
 	busybox mv $3.tar $3.tar.md5
 	busybox chmod 666 $3.tar.md5
 	busybox rm $2
+	busybox sync
 	exit 0
 fi
 
@@ -1504,6 +1544,7 @@ if [ "extract_kernel" == "$1" ]; then
 fi
 
 if [ "flash_recovery" == "$1" ]; then
+	setenforce 0
 	busybox dd if=$2 of=$RECOVERY_DEVICE
 	exit 0
 fi
@@ -1514,6 +1555,7 @@ if [ "extract_recovery" == "$1" ]; then
 fi
 
 if [ "flash_modem" == "$1" ]; then
+	setenforce 0
 	busybox dd if=$2 of=$RADIO_DEVICE
 	exit 0
 fi
@@ -1524,11 +1566,13 @@ if [ "extract_modem" == "$1" ]; then
 fi
 
 if [ "flash_cm_kernel" == "$1" ]; then
+	setenforce 0
 	busybox dd if=$2/boot.img of=$BOOT_DEVICE
 	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 	busybox rm -f /system/lib/modules/*
 	busybox cp $2/system/lib/modules/* /system/lib/modules
 	busybox chmod 644 /system/lib/modules/*
+	busybox sync
 	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	exit 0
 fi

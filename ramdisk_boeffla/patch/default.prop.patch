@@ -1,0 +1,32 @@
+From 1a091f44f4b80d7e935edf7d332789eb6b7cc691 Mon Sep 17 00:00:00 2001
+From: ZaneZam <cyxman@yahoo.com>
+Date: Tue, 21 Apr 2015 23:21:34 +0200
+Subject: [PATCH] default.prop patch
+
+---
+ default.prop | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/default.prop b/default.prop
+index dc19c00..ae70c53 100644
+--- a/default.prop
++++ b/default.prop
+@@ -1,12 +1,12 @@
+ #
+ # ADDITIONAL_DEFAULT_PROPERTIES
+ #
+-ro.adb.secure=1
+-ro.secure=1
++ro.adb.secure=0
++ro.secure=0
+ ro.allow.mock.location=0
+ ro.debuggable=1
+ ro.zygote=zygote32
+-persist.sys.usb.config=mtp
++persist.sys.usb.config=mtp,adb
+ dalvik.vm.dex2oat-Xms=64m
+ dalvik.vm.dex2oat-Xmx=512m
+ dalvik.vm.image-dex2oat-Xms=64m
+-- 
+2.1.4
+

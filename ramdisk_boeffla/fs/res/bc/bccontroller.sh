@@ -1,7 +1,7 @@
 # Boeffla-Config controller interface
 #
 # **********************************************
-# Kona (n5110) CyanogenMod 12 Version by ZaneZam
+# Kona (n5100) CyanogenMod 12 Version by ZaneZam
 #
 # - 19 CPU freq/voltages
 # - 5 GPU freq/voltages
@@ -16,7 +16,7 @@
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5110;cm;cm12.0;http://boeffla.df-kunde.de/zanezam/n5110/boeffla-kernel/"
+KERNEL_SPECS="n5100;cm;cm12.0;http://boeffla.df-kunde.de/zanezam/n5100/boeffla-kernel/"
 
 # kernel features
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)

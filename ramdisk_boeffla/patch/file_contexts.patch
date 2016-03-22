@@ -1,0 +1,26 @@
+From 9aa9e7381de39a3d022e63e33dd28b9a4dc5694e Mon Sep 17 00:00:00 2001
+From: ZaneZam <cyxman@yahoo.com>
+Date: Tue, 22 Mar 2016 14:13:12 +0100
+Subject: [PATCH] file contexts patch
+
+---
+ file_contexts | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/file_contexts b/file_contexts
+index 0b3b8ed..2ba4a56 100644
+--- a/file_contexts
++++ b/file_contexts
+@@ -165,6 +165,9 @@
+ # patchoat executable has (essentially) the same requirements as dex2oat.
+ /system/bin/patchoat    u:object_r:dex2oat_exec:s0
+ 
++# Boeffla specific selinux contexts
++/sbin/busybox		u:object_r:toolbox_exec:s0
++
+ #############################
+ # Vendor files
+ #
+-- 
+2.7.4
+

@@ -896,15 +896,6 @@ void dhd_enable_packet_filter(int value, dhd_pub_t *dhd)
 	    (dhd_support_sta_mode(dhd) && !dhd->dhcp_in_progress)))
 	    {
 		for (i = 0; i < dhd->pktfilter_count; i++) {
-#ifndef GAN_LITE_NAT_KEEPALIVE_FILTER
-			if (value && (i == DHD_ARP_FILTER_NUM) &&
-				!_turn_on_arp_filter(dhd, dhd->op_mode)) {
-				DHD_TRACE(("Do not turn on ARP white list pkt filter:"
-					"val %d, cnt %d, op_mode 0x%x\n",
-					value, i, dhd->op_mode));
-				continue;
-			}
-#endif /* !GAN_LITE_NAT_KEEPALIVE_FILTER */
 			dhd_pktfilter_offload_enable(dhd, dhd->pktfilter[i],
 				value, dhd_master_mode);
 		}
@@ -5012,29 +5003,12 @@ dhd_preinit_ioctls(dhd_pub_t *dhd)
 
 #ifdef PKT_FILTER_SUPPORT
 	/* Setup default defintions for pktfilter , enable in suspend */
-	dhd->pktfilter_count = 6;
+	dhd->pktfilter_count = 1;
 	/* Setup filter to allow only unicast */
 	dhd->pktfilter[DHD_UNICAST_FILTER_NUM] = "100 0 0 0 0x01 0x00";
 	dhd->pktfilter[DHD_BROADCAST_FILTER_NUM] = NULL;
 	dhd->pktfilter[DHD_MULTICAST4_FILTER_NUM] = NULL;
 	dhd->pktfilter[DHD_MULTICAST6_FILTER_NUM] = NULL;
-	/* Add filter to pass multicastDNS packet and NOT filter out as Broadcast */
-	dhd->pktfilter[DHD_MDNS_FILTER_NUM] = "104 0 0 0 0xFFFFFFFFFFFF 0x01005E0000FB";
-	/* apply APP pktfilter */
-	dhd->pktfilter[DHD_ARP_FILTER_NUM] = "105 0 0 12 0xFFFF 0x0806";
-
-#ifdef CUSTOMER_HW4
-#ifdef GAN_LITE_NAT_KEEPALIVE_FILTER
-	dhd->pktfilter_count = 4;
-	/* Setup filter to block broadcast and NAT Keepalive packets */
-	/* discard all broadcast packets */
-	dhd->pktfilter[DHD_UNICAST_FILTER_NUM] = "100 0 0 0 0xffffff 0xffffff";
-	/* discard NAT Keepalive packets */
-	dhd->pktfilter[DHD_BROADCAST_FILTER_NUM] = "102 0 0 36 0xffffffff 0x11940009";
-	/* discard NAT Keepalive packets */
-	dhd->pktfilter[DHD_MULTICAST4_FILTER_NUM] = "104 0 0 38 0xffffffff 0x11940009";
-	dhd->pktfilter[DHD_MULTICAST6_FILTER_NUM] = NULL;
-#else
 #ifdef BLOCK_IPV6_PACKET
 	/* Setup filter to allow only IPv4 unicast frames */
 	dhd->pktfilter[DHD_UNICAST_FILTER_NUM] = "100 0 0 0 "
@@ -5045,8 +5019,6 @@ dhd_preinit_ioctls(dhd_pub_t *dhd)
 #ifdef PASS_IPV4_SUSPEND
 	dhd->pktfilter[DHD_MDNS_FILTER_NUM] = "104 0 0 0 0xFFFFFF 0x01005E";
 #endif /* PASS_IPV4_SUSPEND */
-#endif /* GAN_LITE_NAT_KEEPALIVE_FILTER */
-#endif /* CUSTOMER_HW4 */
 
 #if defined(SOFTAP)
 	if (ap_fw_loaded) {

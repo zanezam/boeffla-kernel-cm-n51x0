@@ -2,8 +2,8 @@
 
 # Boeffla-Config controller interface
 #
-# **********************************************
-# Kona (n5110) CyanogenMod 12 Version by ZaneZam
+# ************************************************
+# Kona (n5120) CyanogenMod 13.0 Version by ZaneZam
 #
 # - 19 CPU freq/voltages
 # - 5 GPU freq/voltages
@@ -11,14 +11,14 @@
 # - no UMS and no notification led functionality
 #
 # V0.2
-# **********************************************
+# ************************************************
 
 # ********************************
 # Kernel specific initialisation
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5110;cm;cm12.0;http://boeffla.df-kunde.de/zanezam/n5110/boeffla-kernel/"
+KERNEL_SPECS="n5120;cm;cm13.0;http://boeffla.df-kunde.de/zanezam/n5120/boeffla-kernel/"
 
 # kernel features
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)
@@ -29,13 +29,12 @@ KERNEL_FEATURES="-3-6-7-"
 LIBPATH="/system/lib/modules"
 
 # block devices
-SYSTEM_DEVICE="/dev/block/mmcblk0p9"
-CACHE_DEVICE="/dev/block/mmcblk0p8"
-DATA_DEVICE="/dev/block/mmcblk0p12"
-BOOT_DEVICE="/dev/block/mmcblk0p5"
-RADIO_DEVICE="/dev/block/mmcblk0p7"
+SYSTEM_DEVICE="/dev/block/mmcblk0p20"
+CACHE_DEVICE="/dev/block/mmcblk0p19"
+DATA_DEVICE="/dev/block/mmcblk0p21"
+BOOT_DEVICE="/dev/block/mmcblk0p9"
+RADIO_DEVICE="/dev/block/mmcblk0p13"
 RECOVERY_DEVICE="/dev/block/mmcblk0p6"
-
 
 # *******************
 # List of values

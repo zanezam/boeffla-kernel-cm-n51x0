@@ -1,19 +1,19 @@
 #!/system/bin/sh
 
-# *****************************
-# n51x0 Cyanogenmod 12 version
+# ******************************
+# n51x0 Cyanogenmod 13.0 version
 #
 # V0.2
-# *****************************
+# ******************************
 
 # define basic kernel configuration
 	# path to internal sd memory
 	SD_PATH="/data/media/0"
 
 	# block devices
-	SYSTEM_DEVICE="/dev/block/mmcblk0p9"
-	CACHE_DEVICE="/dev/block/mmcblk0p8"
-	DATA_DEVICE="/dev/block/mmcblk0p12"
+	SYSTEM_DEVICE="/dev/block/mmcblk0p20"
+	CACHE_DEVICE="/dev/block/mmcblk0p19"
+	DATA_DEVICE="/dev/block/mmcblk0p21"
 
 # define file paths
 	BOEFFLA_DATA_PATH="$SD_PATH/boeffla-kernel-data"

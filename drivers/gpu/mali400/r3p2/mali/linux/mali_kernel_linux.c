@@ -536,6 +536,9 @@ static int mali_ioctl(struct inode *inode, struct file *filp, unsigned int cmd, 
 		case MALI_IOC_GET_USER_SETTINGS:
 			err = get_user_settings_wrapper(session_data, (_mali_uk_get_user_settings_s __user *)arg);
 			break;
+		case MALI_IOC_COMPOSITOR_PRIORITY:
+			err = compositor_priority_wrapper(session_data);
+			break;
 
 #if defined(CONFIG_MALI400_PROFILING)
 		case MALI_IOC_PROFILING_START:

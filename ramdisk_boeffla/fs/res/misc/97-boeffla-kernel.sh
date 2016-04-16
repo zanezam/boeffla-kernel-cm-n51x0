@@ -2,7 +2,7 @@
 # 
 # /system/addon.d/97-boeffla-kernel.sh
 #
-# Backup/Restore script for Boeffla-Kernel to survive a CM rom flash (n5110)
+# Backup/Restore script for Boeffla-Kernel to survive a CM rom flash (n5100)
 #
 # 08.01.2014, andip71 (aka Lord Boeffla)
 

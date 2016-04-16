@@ -1,10 +1,10 @@
 #!/system/bin/sh
 
-# *****************************
-# n51x0 Cyanogenmod 12 version
+# ******************************
+# n51x0 Cyanogenmod 13.0 version
 #
 # V0.2
-# *****************************
+# ******************************
 
 # define basic kernel configuration
 	# path to internal sd memory

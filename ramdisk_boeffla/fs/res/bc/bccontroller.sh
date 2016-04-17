@@ -970,19 +970,19 @@ fi
 
 if [ "apply_survival_script" == "$1" ]; then
 	if [ "1" == "$2" ]; then
-		mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+		busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 		busybox mkdir -p /system/addon.d
 		busybox cp /res/misc/97-boeffla-kernel.sh /system/addon.d
 		busybox chmod 755 /system/addon.d/97-boeffla-kernel.sh
 		busybox sync
-		mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+		busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	fi
 
 	if [ "0" == "$2" ]; then
-		mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+		busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 		busybox rm /system/addon.d/97-boeffla-kernel.sh
 		busybox sync
-		mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+		busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	fi
 	exit 0
 fi
@@ -1055,17 +1055,17 @@ fi
 if [ "apply_ext4_tweaks" == "$1" ]; then
 	if [ "1" == "$2" ]; then
 		busybox sync
-		mount -o remount,commit=20,noatime $CACHE_DEVICE /cache
+		busybox mount -o remount,commit=20,noatime $CACHE_DEVICE /cache
 		busybox sync
-		mount -o remount,commit=20,noatime $DATA_DEVICE /data
+		busybox mount -o remount,commit=20,noatime $DATA_DEVICE /data
 		busybox sync
 	fi
 
 	if [ "0" == "$2" ]; then
 		busybox sync
-		mount -o remount,commit=0,noatime $CACHE_DEVICE /cache
+		busybox mount -o remount,commit=0,noatime $CACHE_DEVICE /cache
 		busybox sync
-		mount -o remount,commit=0,noatime $DATA_DEVICE /data
+		busybox mount -o remount,commit=0,noatime $DATA_DEVICE /data
 		busybox sync
 	fi
 	exit 0
@@ -1318,8 +1318,8 @@ if [ "action_debug_info_file" == "$1" ]; then
 	ls /system/xbin/busybox >> $2
 
 	echo -e "\n**** Mounts:\n" >> $2
-	mount | busybox grep /data >> $2
-	mount | busybox grep /cache >> $2
+	busybox mount | busybox grep /data >> $2
+	busybox mount | busybox grep /cache >> $2
 
 	echo -e "\n**** SD Card read ahead:\n" >> $2
 	cat /sys/block/mmcblk0/bdi/read_ahead_kb >> $2
@@ -1396,7 +1396,7 @@ if [ "action_debug_info_file" == "$1" ]; then
 	busybox df >> $2
 
 	echo -e "\n**** Mounts:\n" >> $2
-	mount >> $2
+	busybox mount >> $2
 
 	echo -e "\n**** $GOVERNOR tuneables\n" >> $2
 	cd /sys/devices/system/cpu/cpufreq/$GOVERNOR
@@ -1487,15 +1487,15 @@ fi
 
 if [ "action_clean_initd" == "$1" ]; then
 	busybox tar cvz -f $2 /system/etc/init.d
-	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+	busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 	busybox rm /system/etc/init.d/*
 	busybox sync
-	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+	busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	exit 0
 fi
 
 if [ "action_fix_permissions" == "$1" ]; then
-	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+	busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 
 	# User apps
 	busybox chmod 644 /data/app/*.apk
@@ -1509,7 +1509,7 @@ if [ "action_fix_permissions" == "$1" ]; then
 	busybox chmod 644 /system/framework/*.jar
 	busybox chown 0:0 /system/framework/*.jar
 
-	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+	busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	busybox sync
 	exit 0
 fi
@@ -1578,12 +1578,12 @@ fi
 if [ "flash_cm_kernel" == "$1" ]; then
 	setenforce 0
 	busybox dd if=$2/boot.img of=$BOOT_DEVICE
-	mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
+	busybox mount -o remount,rw -t ext4 $SYSTEM_DEVICE /system
 	busybox rm -f /system/lib/modules/*
 	busybox cp $2/system/lib/modules/* /system/lib/modules
 	busybox chmod 644 /system/lib/modules/*
 	busybox sync
-	mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
+	busybox mount -o remount,ro -t ext4 $SYSTEM_DEVICE /system
 	exit 0
 fi
 

@@ -68,9 +68,9 @@
 
 	# Ext4 tweaks default to on
 	/sbin/busybox sync
-	mount -o remount,commit=20,noatime $CACHE_DEVICE /cache
+	/sbin/busybox mount -o remount,commit=20,noatime $CACHE_DEVICE /cache
 	/sbin/busybox sync
-	mount -o remount,commit=20,noatime $DATA_DEVICE /data
+	/sbin/busybox mount -o remount,commit=20,noatime $DATA_DEVICE /data
 	/sbin/busybox sync
 
 	# Sdcard buffer tweaks default to 256 kb
@@ -183,7 +183,7 @@
 
 # SELinux part 1 - only reporting what will be done
 	if [ ! -f $PERMISSIVE_ENABLER ]; then
-		echo $(date) Boeffla-Kernel initialisation completed >> $BOEFFLA_LOGFILE
+		echo $(date) "SELinux: enforcing" >> $BOEFFLA_LOGFILE
 	else
 		echo $(date) "SELinux: permissive" >> $BOEFFLA_LOGFILE
 	fi

@@ -18,7 +18,7 @@
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5120;cm;cm13.0;http://boeffla.df-kunde.de/zanezam/n5120/boeffla-kernel/"
+KERNEL_SPECS="n5120;cm;cm13.0;http://kernel.boeffla.de/zanezam/n5120/boeffla-kernel/"
 
 # kernel features
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)

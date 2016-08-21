@@ -8,7 +8,7 @@
 # - 19 CPU freq/voltages
 # - 5 GPU freq/voltages
 # - touch to wake support active
-# - no UMS and no notification led functionality
+# - no notification led functionality
 #
 # V0.2
 # ************************************************
@@ -388,14 +388,13 @@ fi
 # *******************
 
 if [ "get_ums" == "$1" ]; then
-	#if [ "`busybox grep 179 /sys/devices/platform/s3c-usbgadget/gadget/lun0/file`" ]; then
-	#	echo "1"
-	#else
-	#	echo "0"
-	#fi
+	if [ "`busybox grep mmcblk1p1 /sys/devices/platform/s3c-usbgadget/gadget/lun0/file`" ]; then
+		echo "1"
+	else
+		echo "0"
+	fi
 	exit 0
 fi
-
 
 if [ "get_tunables" == "$1" ]; then
 	if [ -d /sys/devices/system/cpu/cpufreq/$2 ]; then
@@ -1188,20 +1187,16 @@ if [ "apply_ntfs" == "$1" ]; then
 fi
 
 if [ "apply_ums" == "$1" ]; then
-	#if [ "1" == "$2" ]; then
-	#	busybox umount -l /mnt/extSdCard
-	#	busybox umount -l /storage/sdcard1
-	#	busybox umount -l /mnt/media_rw/sdcard1
-	#	busybox umount -l /mnt/secure/asec
-	#	/system/bin/setprop persist.sys.usb.config mass_storage,adb
-	#	echo /dev/block/vold/179:17 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
-	#fi
+	if [ "1" == "$2" ]; then
+		echo "0" > /sys/devices/platform/s3c-usbgadget/gadget/lun0/cdrom
+		/system/bin/setprop persist.sys.usb.config mass_storage,adb
+		echo /dev/block/mmcblk1p1 > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
+	fi
 
-	#if [ "0" == "$2" ]; then
-	#	echo "" > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
-	#	/system/bin/vold
-	#	/system/bin/setprop persist.sys.usb.config mtp,adb
-	#fi	
+	if [ "0" == "$2" ]; then
+		echo "" > /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
+		/system/bin/setprop persist.sys.usb.config mtp,adb
+	fi
 	exit 0
 fi
 

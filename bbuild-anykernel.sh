@@ -13,6 +13,7 @@
 BOEFFLA_VERSION="3.1-beta-CM13.0-n5120"
 
 TOOLCHAIN="/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-"
+ARCHITECTURE=arm
 
 COMPILE_DTB="n"
 MODULES_IN_SYSTEM="y"
@@ -72,6 +73,9 @@ fi
 
 BOEFFLA_FILENAME="boeffla-kernel-$BOEFFLA_VERSION"
 
+# set environment
+export ARCH=$ARCHITECTURE
+export CROSS_COMPILE="${CCACHE} $TOOLCHAIN"
 
 #####################
 # internal functions

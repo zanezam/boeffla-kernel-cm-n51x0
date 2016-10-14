@@ -55,11 +55,16 @@ contains()
 dump_boot()
 {
 	dd if=$block of=/tmp/anykernel/boot.img;
+	if [ $? != 0 ]; then
+		ui_print " ";
+		ui_print "Dumping of boot image failed. Aborting...";
+		exit 1;
+	fi;
 
 	$bin/unpackbootimg -i /tmp/anykernel/boot.img -o $split_img;
 	if [ $? != 0 ]; then
 		ui_print " ";
-		ui_print "Dumping/splitting image failed. Aborting...";
+		ui_print "Splitting boot image failed. Aborting...";
 		exit 1;
 	fi;
 

@@ -30,7 +30,7 @@ device.name14=
 device.name15=
 
 # shell variables
-block=/dev/block/mmcblk0p5;
+block=/dev/block/mmcblk0p9;
 add_seandroidenforce=0
 supersu_exclusions=""
 

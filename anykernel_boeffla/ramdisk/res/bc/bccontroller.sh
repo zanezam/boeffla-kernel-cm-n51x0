@@ -18,7 +18,7 @@
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5110;cm;cm13.0;http://kernel.boeffla.de/zanezam/n5110/boeffla-kernel/"
+KERNEL_SPECS="n5110;cm;cm13.0;http://kernel.boeffla.de/zanezam/n5110/boeffla-kernel/;boeffla-kernel-#VERSION#-CM13.0-n5110-anykernel.recovery.zip"
 
 # kernel features
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)

@@ -10,7 +10,7 @@
 # Parameters to be configured manually
 #######################################
 
-BOEFFLA_VERSION="3.1-beta-CM13.0-n5110"
+BOEFFLA_VERSION="4.0-alpha-Lineage14.1-n5110"
 
 TOOLCHAIN="/opt/toolchains/arm-eabi-4.8/bin/arm-eabi-"
 ARCHITECTURE=arm

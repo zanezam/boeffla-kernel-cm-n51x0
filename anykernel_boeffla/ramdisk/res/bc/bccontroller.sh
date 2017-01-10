@@ -3,7 +3,7 @@
 # Boeffla-Config controller interface
 #
 # ************************************************
-# Kona (n5120) CyanogenMod 13.0 Version by ZaneZam
+# Kona (n5120) LineageOS 14.1 Version by ZaneZam
 #
 # - 19 CPU freq/voltages
 # - 5 GPU freq/voltages
@@ -18,7 +18,7 @@
 # ********************************
 
 # kernel specification (hardware; type; target; url)
-KERNEL_SPECS="n5120;cm;cm13.0;http://kernel.boeffla.de/zanezam/n5120/boeffla-kernel/;boeffla-kernel-#VERSION#-CM13.0-n5120-anykernel.recovery.zip"
+KERNEL_SPECS="n5120;cm;cm14.1;http://kernel.boeffla.de/zanezam/n5120/boeffla-kernel/;boeffla-kernel-#VERSION#-Lineage14.1-n5120-anykernel.recovery.zip"
 
 # kernel features
 # (1=enable-busybox,2=enable-frandom,3=wipe-cache,4=disable-zram-control)

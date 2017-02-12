@@ -371,7 +371,6 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-delete-null-pointer-checks \
 		   -marm -march=armv7-a \
 		   -mtune=cortex-a9 -mtune=cortex-a9 \
-		   -mlong-calls \
 		   -fno-diagnostics-show-caret
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=

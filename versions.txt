@@ -4,3 +4,4 @@ v4.0-beta3-lineage14.1-n5100-s48:	27.02.2017
 v4.0-beta4-lineage14.1-n5100-s48:	17.03.2017
 v4.0-beta5-lineage14.1-n5100-s48:	06.04.2017
 v4.0-beta6-lineage14.1-n5100-s48:	23.05.2017
+v4.0-beta7-lineage14.1-n5100-s48:	31.05.2017
